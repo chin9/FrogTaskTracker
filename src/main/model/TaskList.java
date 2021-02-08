@@ -74,7 +74,6 @@ public class TaskList {
         for (Task task : tl) {
             if (task.equals(t)) {
                 task.editName(n);
-                break;
             }
         }
     }
@@ -86,7 +85,6 @@ public class TaskList {
         for (Task task : tl) {
             if (task.equals(t)) {
                 task.editSubject(sub);
-                break;
             }
         }
     }
@@ -98,7 +96,6 @@ public class TaskList {
         for (Task task : tl) {
             if (task.equals(t)) {
                 task.editType(type);
-                break;
             }
         }
     }
@@ -110,7 +107,6 @@ public class TaskList {
         for (Task task : tl) {
             if (task.equals(t)) {
                 task.editDuration(d);
-                break;
             }
         }
     }
@@ -122,7 +118,6 @@ public class TaskList {
         for (Task task : tl) {
             if (task.equals(t)) {
                 task.editDescription(d);
-                break;
             }
         }
     }

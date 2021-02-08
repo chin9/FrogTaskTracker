@@ -81,8 +81,8 @@ public class TaskListTest {
 
     @Test
     public void testEditTaskSub() {
-        taskList.editTaskSub(t1, "MATH 101");
-        assertEquals("MATH 101",taskList.getTask(0).getSubject());
+        taskList.editTaskSub(t3, "MATH 101");
+        assertEquals("MATH 101",taskList.getTask(2).getSubject());
     }
 
     @Test
