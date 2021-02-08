@@ -16,7 +16,7 @@ Therefore, I hope that by *gamifying* studying and schoolwork, students can look
 forward to completing some of the more mundane or unappealing tasks.
 
 ## User Stories
-- As a user, I want to be able to create a task and add it 
+- As a user, I want to be able to add a task
 to my tracker.
 - As a user, I want to be able to remove
 a task from my tracker.
