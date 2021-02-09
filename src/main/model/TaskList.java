@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+// Represents a list of tasks
 public class TaskList {
 
     private List<Task> tl;
@@ -67,8 +68,18 @@ public class TaskList {
         return taskNames;
     }
 
+    //EFFECTS: returns the task with given name, if task doesn't exist, return null
+    public Task getTaskByName(String n) {
+        for (Task t: tl) {
+            if (n.equals(t.getTaskName())) {
+                return t;
+            }
+        }
+        return null;
+    }
+
     //REQUIRES: given task must exist in list
-    //MODIFIES: this, t //if I only change t, am i changing this??
+    //MODIFIES: t
     //EFFECTS: changes the given task's name to n
     public void editTaskName(Task t, String n) {
         for (Task task : tl) {
@@ -79,7 +90,7 @@ public class TaskList {
     }
 
     //REQUIRES: given task must exist in list
-    //MODIFIES: this, t
+    //MODIFIES: t
     //EFFECTS: changes the given task's subject to sub
     public void editTaskSub(Task t, String sub) {
         for (Task task : tl) {
@@ -90,7 +101,7 @@ public class TaskList {
     }
 
     //REQUIRES: given task must exist in list
-    //MODIFIES: this, t
+    //MODIFIES: t
     //EFFECTS: changes the given task's type to t
     public void editTaskType(Task t, String type) {
         for (Task task : tl) {
@@ -101,7 +112,7 @@ public class TaskList {
     }
 
     //REQUIRES: given task must exist in list
-    //MODIFIES: this, t
+    //MODIFIES: t
     //EFFECTS: changes the given task's duration to d
     public void editTaskDur(Task t, int d) {
         for (Task task : tl) {
@@ -112,7 +123,7 @@ public class TaskList {
     }
 
     //REQUIRES: given task must exist in list
-    //MODIFIES: this, t
+    //MODIFIES: t
     //EFFECTS: changes the given task's description to d
     public void editTaskDescription(Task t, String d) {
         for (Task task : tl) {

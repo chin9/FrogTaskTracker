@@ -74,6 +74,16 @@ public class TaskListTest {
     }
 
     @Test
+    public void testGetTaskByNameContains() {
+        assertEquals(t2, taskList.getTaskByName("Peer Review Worksheet"));
+    }
+
+    @Test
+    public void testGetTaskByNameNone() {
+        assertNull(taskList.getTaskByName("Reading Break"));
+    }
+
+    @Test
     public void testEditTaskName() {
         taskList.editTaskName(t2, "Speaker Series Worksheet");
         assertEquals("Speaker Series Worksheet", taskList.getTask(1).getTaskName());

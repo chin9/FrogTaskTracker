@@ -1,5 +1,6 @@
 package model;
 
+// Represents a task completed having a name, subject, type, duration (in minutes), and short description
 public class Task {
     private String taskName;
     private String subject;
