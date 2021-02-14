@@ -18,13 +18,13 @@ public class TaskListTest {
         t2 = new Task("Peer Review Worksheet");
         t3 = new Task("Quiz 2B");
 
-        t1.editType("Homework");
-        t2.editType("Homework");
-        t3.editType("Quiz");
+        t1.setType("Homework");
+        t2.setType("Homework");
+        t3.setType("Quiz");
 
-        t1.editSubject("CPSC 121");
-        t2.editSubject("SCIE 113");
-        t3.editSubject("CPSC 121");
+        t1.setSubject("CPSC 121");
+        t2.setSubject("SCIE 113");
+        t3.setSubject("CPSC 121");
 
         taskList.addTask(t1);
         taskList.addTask(t2);
@@ -34,17 +34,24 @@ public class TaskListTest {
     @Test
     public void testAddTask() {
         taskList.addTask(t1);
-        assertEquals(4, taskList.getTasks().size());
+        taskList.addTask(t2);
+        taskList.addTask(t3);
+        assertEquals(6, taskList.getTasks().size());
         assertTrue(taskList.getTasks().contains(t1));
+        assertEquals(2, taskList.getFrogWeight());
     }
 
     @Test
     public void testRemoveTask() {
-
+        taskList.addTask(t1);
+        taskList.addTask(t3);
+        assertEquals(5, taskList.getTasks().size());
+        assertEquals(2, taskList.getFrogWeight());
         taskList.removeTask(t2);
-        assertEquals(2, taskList.getTasks().size());
+        assertEquals(4, taskList.getTasks().size());
         assertTrue(taskList.getTasks().contains(t1));
         assertTrue(taskList.getTasks().contains(t3));
+        assertEquals(1, taskList.getFrogWeight());
     }
 
     @Test

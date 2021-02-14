@@ -7,22 +7,28 @@ import java.util.List;
 public class TaskList {
 
     private List<Task> tl;
+    private int frogWeight;
 
     public TaskList() {
         tl = new ArrayList<>();
+        frogWeight = 1;
     }
 
     //MODIFIES: this
     //EFFECTS: adds given task to list
+    //         adjust frog's weight: +1 for every five tasks added (1 + size/5)
     public void addTask(Task t) {
         tl.add(t);
+        frogWeight = 1 + tl.size() / 5;
     }
 
     //REQUIRES: t must be a task in the list
     //MODIFIES: this
     //EFFECTS: removes given task from list
+    //         adjust frog's weight; -1 for every five tasks removed
     public void removeTask(Task t) {
         tl.remove(t);
+        frogWeight = 1 + tl.size() / 5;
     }
 
     //EFFECTS: returns task given index number
@@ -84,7 +90,7 @@ public class TaskList {
     public void editTaskName(Task t, String n) {
         for (Task task : tl) {
             if (task.equals(t)) {
-                task.editName(n);
+                task.setName(n);
             }
         }
     }
@@ -95,7 +101,7 @@ public class TaskList {
     public void editTaskSub(Task t, String sub) {
         for (Task task : tl) {
             if (task.equals(t)) {
-                task.editSubject(sub);
+                task.setSubject(sub);
             }
         }
     }
@@ -106,7 +112,7 @@ public class TaskList {
     public void editTaskType(Task t, String type) {
         for (Task task : tl) {
             if (task.equals(t)) {
-                task.editType(type);
+                task.setType(type);
             }
         }
     }
@@ -117,7 +123,7 @@ public class TaskList {
     public void editTaskDur(Task t, int d) {
         for (Task task : tl) {
             if (task.equals(t)) {
-                task.editDuration(d);
+                task.setDuration(d);
             }
         }
     }
@@ -128,7 +134,7 @@ public class TaskList {
     public void editTaskDescription(Task t, String d) {
         for (Task task : tl) {
             if (task.equals(t)) {
-                task.editDescription(d);
+                task.setDescription(d);
             }
         }
     }
@@ -136,6 +142,10 @@ public class TaskList {
     //getter
     public List<Task> getTasks() {
         return tl;
+    }
+
+    public int getFrogWeight() {
+        return frogWeight;
     }
 
 

@@ -36,38 +36,42 @@ public class TrackerApp {
         }
     }
 
+    //MODIFIES: this
     //EFFECTS: initializes tracker
     private void init() {
         myTL = new TaskList();
         input = new Scanner(System.in);
     }
 
+    //EFFECTS: displays actions to be completed
     private void displayMenu() {
         System.out.println("What do you want to do?");
-        System.out.println("\trec -> record a task");
-        System.out.println("\trem -> remove a task");
+        System.out.println("\ta -> add a task");
+        System.out.println("\tr -> remove a task");
         System.out.println("\te -> edit a task");
         System.out.println("\td -> display all tasks");
+        System.out.println("\tf -> filter tasks");
         System.out.println("\ts -> filter tasks by subject");
         System.out.println("\tt -> filter tasks by type");
         System.out.println("\tq -> quit");
     }
 
-    //why is this public?
-    public void processCommand(String c) {
-        if (c.equals("rec")) {
+    //MODIFIES: this
+    //EFFECTS: completes action according to input command
+    private void processCommand(String c) {
+        if (c.equals("a")) {
             Task t0 = createTask();
             myTL.addTask(t0);
-        } else if (c.equals("rem")) {
+            displayFrogWeight();
+        } else if (c.equals("r")) {
             removeTask();
+            displayFrogWeight();
         } else if (c.equals("e")) {
             editTask();
         } else if (c.equals("d")) {
             displayTaskNames();
-        } else if (c.equals("s")) {
-            displayBySubject();
-        } else if (c.equals("t")) {
-            displayByType();
+        } else if (c.equals("f")) {
+            chooseFilter();
         } else {
             System.out.println("Invalid input.");
         }
@@ -90,21 +94,30 @@ public class TrackerApp {
 
         System.out.println("Subject: ");
         sub = input.nextLine();
-        task.editSubject(sub);
+        task.setSubject(sub);
 
         System.out.println("Type: ");
         type = input.nextLine();
-        task.editType(type);
+        task.setType(type);
 
         System.out.println("Duration: ");
+        checkForInteger();
         dur = Integer.parseInt(input.nextLine());
-        task.editDuration(dur);
+        task.setDuration(dur);
 
         System.out.println("Description: ");
         description = input.nextLine();
-        task.editDescription(description);
+        task.setDescription(description);
 
         return task;
+    }
+
+    //EFFECTS: if next input isn't integer, ask for an integer
+    private void checkForInteger() {
+        while (!input.hasNextInt()) {
+            System.out.println("Please enter an integer!");
+            input.nextLine();
+        }
     }
 
     //MODIFIES: this
@@ -141,11 +154,11 @@ public class TrackerApp {
             editName(task);
         } else if (editOption.equals("s")) {
             editSubject(task);
-        }  else if (editOption.equals("t")) {
+        } else if (editOption.equals("t")) {
             editType(task);
-        }  else if (editOption.equals("dur")) {
+        } else if (editOption.equals("dur")) {
             editDuration(task);
-        }  else if (editOption.equals("des")) {
+        } else if (editOption.equals("des")) {
             editDescription(task);
         }
     }
@@ -156,7 +169,7 @@ public class TrackerApp {
         String name;
         System.out.println("What do you want to change the name to?");
         name = input.nextLine();
-        task.editName(name);
+        task.setName(name);
         System.out.println("Name changed to: " + name);
     }
 
@@ -166,7 +179,7 @@ public class TrackerApp {
         String sub;
         System.out.println("What do you want to change the subject to?");
         sub = input.nextLine();
-        task.editSubject(sub);
+        task.setSubject(sub);
         System.out.println("Subject changed to: " + sub);
     }
 
@@ -176,17 +189,17 @@ public class TrackerApp {
         String type;
         System.out.println("What do you want to change the type to?");
         type = input.nextLine();
-        task.editType(type);
+        task.setType(type);
         System.out.println("Type changed to: " + type);
     }
 
     //MODIFIES: task
-    //EFFECTS: changes the given task's duration to entered duration
+    //EFFECTS: changes the given task's duration to entered duration, if input is not int, enter again
     private void editDuration(Task task) {
         int dur;
         System.out.println("What do you want to change the duration to?");
         dur = Integer.parseInt(input.nextLine());
-        task.editDuration(dur);
+        task.setDuration(dur);
         System.out.println("Duration changed to: " + dur);
     }
 
@@ -196,7 +209,7 @@ public class TrackerApp {
         String des;
         System.out.println("What do you want to change the description to?");
         des = input.nextLine();
-        task.editDescription(des);
+        task.setDescription(des);
         System.out.println("Description changed to: " + des);
     }
 
@@ -208,6 +221,27 @@ public class TrackerApp {
         System.out.println("\tt -> type");
         System.out.println("\tdur -> duration");
         System.out.println("\tdes -> description");
+    }
+
+    //EFFECTS: filter tasks by subject if "s" inputted, by type if "t" inputted
+    private void chooseFilter() {
+        String next;
+        filterMenu();
+        next = input.nextLine();
+        if (next.equals("s")) {
+            displayBySubject();
+        } else if (next.equals("t")) {
+            displayByType();
+        } else {
+            System.out.println("Invalid input.");
+        }
+    }
+
+    //EFFECTS: displays diffferent ways the tasks can be filtered
+    private void filterMenu() {
+        System.out.println("What do you want to filter by?");
+        System.out.println("\ts -> subject");
+        System.out.println("\tt -> type");
     }
 
     //EFFECTS: displays the names of all tasks completed
@@ -234,4 +268,8 @@ public class TrackerApp {
         System.out.println(myTL.displayTasksOfType(type));
     }
 
+    //EFFECTS: displays the weight of frog
+    private void displayFrogWeight() {
+        System.out.println("Task added. \nYour frog is " + myTL.getFrogWeight() + " kg!");
+    }
 }

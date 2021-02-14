@@ -12,33 +12,25 @@ public class Task {
         taskName = n;
     }
 
-    //MODIFIES: this
-    //EFFECTS: changes the task name to n
-    public void editName(String n) {
+
+    //setters
+    public void setName(String n) {
         taskName = n;
     }
 
-    //MODIFIES: this
-    //EFFECTS: changes the subject to s
-    public void editSubject(String s) {
+    public void setSubject(String s) {
         subject = s;
     }
 
-    //MODIFIES: this
-    //EFFECTS: changes the type to t
-    public void editType(String t) {
+    public void setType(String t) {
         type = t;
     }
 
-    //MODIFIES: this
-    //EFFECTS: changes the duration to d in minutes
-    public void editDuration(int d) {
+    public void setDuration(int d) {
         duration = d;
     }
 
-    //MODIFIES: this
-    //EFFECTS: changes the description to d
-    public void editDescription(String d) {
+    public void setDescription(String d) {
         description = d;
     }
 
