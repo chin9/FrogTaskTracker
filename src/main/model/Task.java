@@ -34,7 +34,7 @@ public class Task {
         description = d;
     }
 
-    // getters
+    //getters
     public String getTaskName() {
         return taskName;
     }
@@ -53,6 +53,12 @@ public class Task {
 
     public String getDescription() {
         return description;
+    }
+
+    //EFFECTS: returns String representation of Task
+    public String toString() {
+        return "Name: " + taskName + "\nSubject: " + subject + "\nType: " + type + "\nDuration: " + duration
+                + " minutes" + "\nDescription: " + description;
     }
 
 }

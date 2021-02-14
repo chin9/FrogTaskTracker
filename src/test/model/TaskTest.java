@@ -2,8 +2,10 @@ package model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
+//Test for Task
 public class TaskTest {
 
     private Task myTask;
@@ -42,6 +44,21 @@ public class TaskTest {
     public void testSetDescription() {
         myTask.setDescription("Practiced converting between Riemann sum and integrals.");
         assertEquals("Practiced converting between Riemann sum and integrals.", myTask.getDescription());
+    }
+
+    @Test
+    public void testToString() {
+        myTask.setSubject("MATH 101");
+        myTask.setType("Homework");
+        myTask.setDuration(180);
+        myTask.setDescription("Integral and Riemann Sum");
+
+        assertEquals("Name: Assignment 1\n" +
+                        "Subject: MATH 101\n" +
+                        "Type: Homework\n" +
+                        "Duration: 180 minutes\n" +
+                        "Description: Integral and Riemann Sum",
+                myTask.toString());
     }
 
 

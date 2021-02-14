@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-// Represents a list of tasks
+// Represents a list of tasks, including weight of frog fed by the completed tasks
 public class TaskList {
 
     private List<Task> tl;
@@ -74,9 +74,18 @@ public class TaskList {
         return taskNames;
     }
 
+    //EFFECTS: returns total duration worked
+    public int displayTotalDuration() {
+        int totalDur = 0;
+        for (Task t : tl) {
+            totalDur += t.getDuration();
+        }
+        return totalDur;
+    }
+
     //EFFECTS: returns the task with given name, if task doesn't exist, return null
     public Task getTaskByName(String n) {
-        for (Task t: tl) {
+        for (Task t : tl) {
             if (n.equals(t.getTaskName())) {
                 return t;
             }
@@ -139,7 +148,7 @@ public class TaskList {
         }
     }
 
-    //getter
+    //getters
     public List<Task> getTasks() {
         return tl;
     }

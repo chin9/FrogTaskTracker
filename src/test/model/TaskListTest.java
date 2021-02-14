@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+//Test for TaskList
 public class TaskListTest {
 
     private TaskList taskList;
@@ -25,6 +26,10 @@ public class TaskListTest {
         t1.setSubject("CPSC 121");
         t2.setSubject("SCIE 113");
         t3.setSubject("CPSC 121");
+
+        t1.setDuration(120);
+        t2.setDuration(180);
+        t3.setDuration(200);
 
         taskList.addTask(t1);
         taskList.addTask(t2);
@@ -78,6 +83,11 @@ public class TaskListTest {
     public void testDisplayTaskOfSubject() {
 
         assertEquals("Assignment 1\nQuiz 2B\n", taskList.displayTasksOfSubject("CPSC 121"));
+    }
+
+    @Test
+    public void testDisplayTotalDur() {
+        assertEquals(500, taskList.displayTotalDuration());
     }
 
     @Test
