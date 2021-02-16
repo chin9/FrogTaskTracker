@@ -26,5 +26,10 @@ recorded task on my tracker.
 tasks I have completed.
 - As a user, I want to be able to view the tasks
 completed for a given subject or type.
+- As a user, I want to be able to save my task list to file.
+- As a user, I want to be able to load my task list from file.
+- As a user, when I select the quit option from the menu, I want to 
+be reminded to save my task list to file and have th eoption to do so or not.
+- As a user, when I start the application, I want to be given the option to load my task list from file.
 
 
