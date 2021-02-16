@@ -1,0 +1,26 @@
+{
+    "tl": [
+        {
+            "duration": 200,
+            "subject": "CPSC 210",
+            "description": "Data Persistence",
+            "taskName": "Phase 2",
+            "type": "Project"
+        },
+        {
+            "duration": 90,
+            "subject": "MATH 101",
+            "description": "Integration By Parts",
+            "taskName": "Assignment 5",
+            "type": "Assignment"
+        },
+        {
+            "duration": 300,
+            "subject": "SCIE 113",
+            "description": "Facts Do Not Speak For Themselves",
+            "taskName": "Essay 1",
+            "type": "Assignment"
+        }
+    ],
+    "frogWeight": 1
+}

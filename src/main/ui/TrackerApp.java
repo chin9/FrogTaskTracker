@@ -2,17 +2,24 @@ package ui;
 
 import model.Task;
 import model.TaskList;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 // Task Tracker Application
 public class TrackerApp {
+    private static final String JSON_STORE = "./data/tasklist.json";
 
     private TaskList myTL;
     private Scanner input;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
     //EFFECTS: runs the Task Tracker application
-    public TrackerApp() {
+    public TrackerApp() throws FileNotFoundException{
         runTracker();
     }
 
@@ -41,6 +48,8 @@ public class TrackerApp {
     private void init() {
         myTL = new TaskList();
         input = new Scanner(System.in);
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
     }
 
     //EFFECTS: displays actions to be completed
@@ -53,6 +62,8 @@ public class TrackerApp {
         System.out.println("\td -> display all tasks");
         System.out.println("\tf -> filter tasks");
         System.out.println("\tt -> display total time recorded");
+        System.out.println("\ts -> save current list to file");
+        System.out.println("\tl -> load saved file");
         System.out.println("\tq -> quit");
     }
 
@@ -77,6 +88,10 @@ public class TrackerApp {
             chooseFilter();
         } else if (c.equals("t")) {
             displayTimeRecorded();
+        } else if (c.equals("s")) {
+          saveTaskList();
+        } else if (c.equals("l")) {
+            loadTaskList();
         } else {
             System.out.println("Invalid input.");
         }
@@ -298,5 +313,28 @@ public class TrackerApp {
     //EFFECTS: displays the weight of frog
     private void displayFrogWeight() {
         System.out.println("Your frog is " + myTL.getFrogWeight() + " kg!");
+    }
+
+    // EFFECTS: saves the task list to file
+    private void saveTaskList() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(myTL);
+            jsonWriter.close();
+            System.out.println("Saved task list to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write file: " + JSON_STORE);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads task list from file
+    private void loadTaskList() {
+        try {
+            myTL = jsonReader.read();
+            System.out.println("Loaded saved list from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
     }
 }

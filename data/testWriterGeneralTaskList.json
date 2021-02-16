@@ -1,0 +1,19 @@
+{
+    "tl": [
+        {
+            "duration": 200,
+            "subject": "CPSC 210",
+            "description": "Data Persistence",
+            "taskName": "Phase 2",
+            "type": "Project"
+        },
+        {
+            "duration": 90,
+            "subject": "MATH 101",
+            "description": "Integration By Parts",
+            "taskName": "Assignment 5",
+            "type": "Assignment"
+        }
+    ],
+    "frogWeight": 1
+}

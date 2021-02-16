@@ -1,7 +1,10 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 // Represents a task completed having a name, subject, type, duration (in minutes), and short description
-public class Task {
+public class Task implements Writable {
     private String taskName;
     private String subject;
     private String type;
@@ -61,4 +64,14 @@ public class Task {
                 + " minutes" + "\nDescription: " + description;
     }
 
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("taskName", taskName);
+        json.put("subject", subject);
+        json.put("type", type);
+        json.put("duration", duration);
+        json.put("description", description);
+        return json;
+    }
 }
