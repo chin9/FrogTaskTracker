@@ -1,12 +1,10 @@
 package model;
 
 import org.json.JSONObject;
-import junit.framework.Assert;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 //Test for Task
