@@ -19,7 +19,7 @@ public class TrackerApp {
     private JsonReader jsonReader;
 
     //EFFECTS: runs the Task Tracker application
-    public TrackerApp() throws FileNotFoundException{
+    public TrackerApp() throws FileNotFoundException {
         runTracker();
     }
 
@@ -71,13 +71,10 @@ public class TrackerApp {
     //EFFECTS: completes action according to input command
     private void processCommand(String c) {
         if (c.equals("a")) {
-            Task t0 = createTask();
-            myTL.addTask(t0);
-            System.out.println("Task added.");
-            displayFrogWeight();
+            addTask();
         } else if (c.equals("r")) {
             removeTask();
-            displayFrogWeight();
+
         } else if (c.equals("i")) {
             displayTaskInformation();
         } else if (c.equals("e")) {
@@ -89,7 +86,7 @@ public class TrackerApp {
         } else if (c.equals("t")) {
             displayTimeRecorded();
         } else if (c.equals("s")) {
-          saveTaskList();
+            saveTaskList();
         } else if (c.equals("l")) {
             loadTaskList();
         } else {
@@ -98,6 +95,11 @@ public class TrackerApp {
 
     }
 
+    private void addTask() {
+        Task t0 = createTask();
+        myTL.addTask(t0);
+        displayFrogWeight();
+    }
 
 
     //EFFECTS: creates a new task
@@ -156,6 +158,7 @@ public class TrackerApp {
         task = myTL.getTaskByName(name);
         myTL.removeTask(task);
         System.out.println("The task " + name + " is removed.");
+        displayFrogWeight();
     }
 
     //REQUIRES: task entered is part of displayed list
