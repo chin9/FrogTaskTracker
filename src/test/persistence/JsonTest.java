@@ -2,7 +2,7 @@ package persistence;
 
 import model.Task;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class JsonTest {
     protected void checkTask(String name, String sub, String type, int dur, String des, Task t) {
