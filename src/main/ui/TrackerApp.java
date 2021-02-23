@@ -19,7 +19,7 @@ public class TrackerApp {
     private JsonReader jsonReader;
 
     //EFFECTS: runs the Task Tracker application
-    public TrackerApp() throws FileNotFoundException {
+    public TrackerApp() {
         runTracker();
     }
 
@@ -36,10 +36,26 @@ public class TrackerApp {
             command = input.nextLine();
 
             if (command.equals("q")) {
+                remindToSave();
                 keepGoing = false;
             } else {
                 processCommand(command);
             }
+        }
+    }
+
+
+    //EFFECTS: reminds user to save the current task list
+    private void remindToSave() {
+        String save;
+        System.out.println("Do you want to save your file before quitting?");
+        System.out.println("\ty -> yes");
+        System.out.println("\tn -> no");
+        save = input.next();
+        if (save.equals("y")) {
+            saveTaskList();
+        } else if (!save.equals("n")) {
+            System.out.println("Invalid input.");
         }
     }
 
@@ -50,6 +66,23 @@ public class TrackerApp {
         input = new Scanner(System.in);
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
+        askToLoad();
+    }
+
+    //EFFECTS: reminds user to load previously saved list
+    private void askToLoad() {
+
+        System.out.println("Would you like to load your saved file?");
+        System.out.println("\ty -> yes");
+        System.out.println("\tn -> no");
+        String save = input.nextLine();
+        if (!save.equals("n")) {
+            if (save.equals("y")) {
+                loadTaskList();
+            } else {
+                System.out.println("Invalid input.");
+            }
+        }
     }
 
     //EFFECTS: displays actions to be completed

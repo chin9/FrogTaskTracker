@@ -1,6 +1,6 @@
 package model;
 
-import org.json.JSONObject;
+
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -63,22 +63,6 @@ public class TaskTest {
                 myTask.toString());
     }
 
-    @Test
-    public void testToJson() {
-        JSONObject json = new JSONObject();
-        myTask.setSubject("CPSC 210");
-        myTask.setType("Assignment");
-        myTask.setDuration(60);
-        myTask.setDescription("Hahaha");
-
-        json.put("taskName", "Assignment 1");
-        json.put("subject", "CPSC 210");
-        json.put("type", "Assignment");
-        json.put("duration", 60);
-        json.put("description", "Hahaha");
-
-        assertEquals(json, myTask.toJson());
-    }
 
 
 }
