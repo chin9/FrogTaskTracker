@@ -164,6 +164,7 @@ public class TaskList implements Writable {
 
 
     @Override
+    // EFFECTS: returns this as JSON Object
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("frogWeight", frogWeight);
@@ -171,7 +172,7 @@ public class TaskList implements Writable {
         return json;
     }
 
-    // EFFECTS: returns things in this task list as a JSON array
+    // EFFECTS: returns tasks in this task list as a JSON array
     private JSONArray tasksToJson() {
         JSONArray jsonArray = new JSONArray();
 

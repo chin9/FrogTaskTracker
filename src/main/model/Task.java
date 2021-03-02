@@ -65,6 +65,7 @@ public class Task implements Writable {
     }
 
     @Override
+    // EFFECTS: returns this as a Json object
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("taskName", taskName);

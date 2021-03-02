@@ -36,11 +36,11 @@
             "type": "Assignment"
         },
         {
-            "duration": 180,
-            "subject": "CPSC 210",
-            "description": "B1 - A7 (modules)",
-            "taskName": "Study for CPSC 210 Midterm 1",
-            "type": "Study"
+            "duration": 30,
+            "subject": "SCIE 113",
+            "description": "Summarizing the research articles which support my claim.",
+            "taskName": "Evidence Worksheet",
+            "type": "Homework"
         }
     ],
     "frogWeight": 2

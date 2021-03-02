@@ -128,6 +128,8 @@ public class TrackerApp {
 
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds created task to task list and display current frog weight
     private void addTask() {
         Task t0 = createTask();
         myTL.addTask(t0);

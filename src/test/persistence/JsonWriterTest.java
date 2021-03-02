@@ -8,6 +8,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+// Test for JsonWriter
 // CITATION: JsonSerializationDemo
 public class JsonWriterTest extends JsonTest{
 
