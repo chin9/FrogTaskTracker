@@ -11,6 +11,7 @@ import java.util.stream.Stream;
 import org.json.*;
 
 // CITATION: JsonSerializationDemo
+// URL: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
 // Represents a reader that reads TaskList from JSON data stored in file
 public class JsonReader {
     private String source;

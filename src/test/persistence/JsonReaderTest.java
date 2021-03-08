@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 // Test for JsonReader
 // CITATION: JsonSerializationDemo
+// URL: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
 public class JsonReaderTest extends JsonTest{
 
     @Test

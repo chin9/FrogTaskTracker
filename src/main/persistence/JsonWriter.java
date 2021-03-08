@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import java.io.*;
 
 // CITATION: JsonSerializationDemo
+// URL: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
 // Represents a writer that writes JSON representation of TaskList to file
 public class JsonWriter {
     private static final int TAB = 4;
