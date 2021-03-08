@@ -173,7 +173,7 @@ public class TaskList implements Writable {
     }
 
     // EFFECTS: returns tasks in this task list as a JSON array
-    private JSONArray tasksToJson() {
+    public JSONArray tasksToJson() {
         JSONArray jsonArray = new JSONArray();
 
         for (Task t : tl) {

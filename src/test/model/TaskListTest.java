@@ -1,5 +1,7 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -128,6 +130,32 @@ public class TaskListTest {
     public void testEditTaskDescription() {
         taskList.editTaskDescription(t3, "Quiz on Propositional Logic");
         assertEquals("Quiz on Propositional Logic", taskList.getTask(2).getDescription());
+    }
+
+    @Test
+    public void testTasksToJson() {
+        JSONArray json = new JSONArray();
+        json.put(t1.toJson());
+        json.put(t2.toJson());
+        json.put(t3.toJson());
+
+        assertEquals(json.toString(), taskList.tasksToJson().toString());
+
+    }
+
+    @Test
+    public void testToJson() {
+        JSONObject json = new JSONObject();
+        JSONArray jsonArray = new JSONArray();
+        jsonArray.put(t1.toJson());
+        jsonArray.put(t2.toJson());
+        jsonArray.put(t3.toJson());
+
+        json.put("tl", jsonArray);
+        json.put("frogWeight", 1);
+
+        assertEquals(json.toString(), taskList.toJson().toString());
+
     }
 
 

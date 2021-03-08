@@ -2,6 +2,7 @@ package model;
 
 
 
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -61,6 +62,26 @@ public class TaskTest {
                         "Duration: 180 minutes\n" +
                         "Description: Integral and Riemann Sum",
                 myTask.toString());
+    }
+
+    @Test
+    public void testToJson() {
+        JSONObject json = new JSONObject();
+
+        json.put("taskName", "Assignment 1");
+        json.put("subject", "MATH 101");
+        json.put("type", "Homework");
+        json.put("duration", 180);
+        json.put("description", "Integral and Riemann Sum");
+
+        myTask.setSubject("MATH 101");
+        myTask.setType("Homework");
+        myTask.setDuration(180);
+        myTask.setDescription("Integral and Riemann Sum");
+
+        assertEquals(json.toString(), myTask.toJson().toString());
+
+
     }
 
 
