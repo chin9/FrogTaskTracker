@@ -41,6 +41,13 @@
             "description": "Summarizing the research articles which support my claim.",
             "taskName": "Evidence Worksheet",
             "type": "Homework"
+        },
+        {
+            "duration": 1000,
+            "subject": "CPSC 210",
+            "description": "Design a GUI",
+            "taskName": "Phase 3",
+            "type": "Project"
         }
     ],
     "frogWeight": 2
