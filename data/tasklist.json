@@ -1,41 +1,6 @@
 {
     "tl": [
         {
-            "duration": 200,
-            "subject": "CPSC 210",
-            "description": "Data Persistence",
-            "taskName": "Phase 2",
-            "type": "Project"
-        },
-        {
-            "duration": 90,
-            "subject": "MATH 101",
-            "description": "Integration By Parts",
-            "taskName": "Assignment 5",
-            "type": "Assignment"
-        },
-        {
-            "duration": 300,
-            "subject": "SCIE 113",
-            "description": "Facts Do Not Speak For Themselves",
-            "taskName": "Essay 1",
-            "type": "Assignment"
-        },
-        {
-            "duration": 180,
-            "subject": "MATH 101",
-            "description": "Trigonometric substitution and partial fractions",
-            "taskName": "Assignment 6",
-            "type": "Assignment"
-        },
-        {
-            "duration": 180,
-            "subject": "SCIE 113",
-            "description": "template for term paper + research",
-            "taskName": "Term Paper Template",
-            "type": "Assignment"
-        },
-        {
             "duration": 30,
             "subject": "SCIE 113",
             "description": "Summarizing the research articles which support my claim.",
@@ -45,9 +10,37 @@
         {
             "duration": 1000,
             "subject": "CPSC 210",
-            "description": "Design a GUI",
-            "taskName": "Phase 3",
+            "description": "GUI",
+            "taskName": "Phase 4",
             "type": "Project"
+        },
+        {
+            "duration": 180,
+            "subject": "SCIE 113",
+            "description": "Deep Brain Stimulation",
+            "taskName": "Term Paper",
+            "type": "Assignment"
+        },
+        {
+            "duration": 300,
+            "subject": "CPSC 121",
+            "description": "Proofs and Quantifiers",
+            "taskName": "Assignment 3",
+            "type": "Assignment"
+        },
+        {
+            "duration": 120,
+            "subject": "MATH 100",
+            "description": "Improper integrals",
+            "taskName": "Homework 8",
+            "type": "Homework"
+        },
+        {
+            "duration": 400,
+            "subject": "CPSC 210",
+            "description": "A1 - C3 (or something like that idk)",
+            "taskName": "Study for ITE2",
+            "type": "Study"
         }
     ],
     "frogWeight": 2
