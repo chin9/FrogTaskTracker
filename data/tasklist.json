@@ -27,7 +27,21 @@
             "description": "D",
             "taskName": "D",
             "type": "D"
+        },
+        {
+            "duration": 5,
+            "subject": "E",
+            "description": "E",
+            "taskName": "E",
+            "type": "E"
+        },
+        {
+            "duration": 6,
+            "subject": "F",
+            "description": "F",
+            "taskName": "F",
+            "type": "F"
         }
     ],
-    "frogWeight": 1
+    "frogWeight": 2
 }

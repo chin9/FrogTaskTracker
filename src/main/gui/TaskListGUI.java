@@ -5,12 +5,16 @@ import model.Task;
 import model.TaskList;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 
-public class TaskListGUI extends JPanel implements ListSelectionListener {
+public class TaskListGUI extends JPanel implements ListSelectionListener, DocumentListener {
     private static final int WIDTH = 200;
     private static final int HEIGHT = 300;
 
@@ -158,7 +162,7 @@ public class TaskListGUI extends JPanel implements ListSelectionListener {
     }
 
     private void makeAddButton(JButton addButton) {
-        AddListener addListener = new AddListener(addButton, this);
+        AddListener addListener = new AddListener(addButton);
 
         addButton.addActionListener(addListener);
         addButton.setEnabled(false);
@@ -280,6 +284,118 @@ public class TaskListGUI extends JPanel implements ListSelectionListener {
     //setters
     public void setTl(TaskList tl) {
         this.tl = tl;
+    }
+
+    @Override
+    public void insertUpdate(DocumentEvent e) {
+
+    }
+
+    @Override
+    public void removeUpdate(DocumentEvent e) {
+
+    }
+
+    @Override
+    public void changedUpdate(DocumentEvent e) {
+
+    }
+
+
+    //This listener is shared by the text field and the hire button.
+    class AddListener implements ActionListener, DocumentListener {
+        private boolean alreadyEnabled = false;
+        private JButton button;
+        Task task;
+
+        public AddListener(JButton button) {
+            this.button = button;
+        }
+
+        //Required by ActionListener.
+        public void actionPerformed(ActionEvent e) {
+            String name = newTaskName.getText();
+
+            //User didn't type in a unique name...
+            if (name.equals("") || alreadyInList(name)) {
+                Toolkit.getDefaultToolkit().beep();
+                newTaskName.requestFocusInWindow();
+                newTaskName.selectAll();
+                return;
+            }
+
+            int index = list.getSelectedIndex(); //get selected index
+            if (index == -1) { //no selection, so insert at beginning
+                index = 0;
+            } else {           //add after the selected item
+                index++;
+            }
+
+            addTask();
+
+            listModel.insertElementAt(newTaskName.getText(), index);
+            //If we just wanted to add to the end, we'd do this:
+            //listModel.addElement(employeeName.getText());
+
+            //Reset the text field.
+
+            resetTextFields();
+
+            //Select the new item and make it visible.
+            list.setSelectedIndex(index);
+            list.ensureIndexIsVisible(index);
+        }
+
+        private void addTask() {
+            task = new Task(newTaskName.getText());
+            task.setSubject(newSubject.getText());
+            task.setDuration(Integer.parseInt(newDuration.getText()));
+            task.setType(newType.getText());
+            task.setDescription(newDescription.getText());
+            tl.addTask(task);
+        }
+
+        protected boolean alreadyInList(String name) {
+            for (Task t : tl.getTasks()) {
+                if (t.getTaskName().equals(name)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
+        //Required by DocumentListener.
+        public void insertUpdate(DocumentEvent e) {
+            enableButton();
+        }
+
+        //Required by DocumentListener.
+        public void removeUpdate(DocumentEvent e) {
+            handleEmptyTextField(e);
+        }
+
+        //Required by DocumentListener.
+        public void changedUpdate(DocumentEvent e) {
+            if (!handleEmptyTextField(e)) {
+                enableButton();
+            }
+        }
+
+        private void enableButton() {
+            if (!alreadyEnabled) {
+                button.setEnabled(true);
+            }
+        }
+
+        private boolean handleEmptyTextField(DocumentEvent e) {
+            if (e.getDocument().getLength() <= 0) {
+                button.setEnabled(false);
+                alreadyEnabled = false;
+                return true;
+            }
+            return false;
+        }
     }
 
 
