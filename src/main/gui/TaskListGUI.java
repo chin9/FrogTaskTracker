@@ -19,7 +19,7 @@ public class TaskListGUI extends JPanel implements ListSelectionListener {
     private JPanel panel;
     private JPanel textPanel;
     private TaskList tl = new TaskList();
-    private JTextField newTaskName = new JTextField(10);
+    private JTextField newTaskName;
     private JTextField newSubject = new JTextField(10);
     private JTextField newType = new JTextField(10);
     private JTextField newDuration = new JTextField(10);
