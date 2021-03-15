@@ -1,47 +1,33 @@
 {
     "tl": [
         {
-            "duration": 30,
-            "subject": "SCIE 113",
-            "description": "Summarizing the research articles which support my claim.",
-            "taskName": "Evidence Worksheet",
-            "type": "Homework"
+            "duration": 1,
+            "subject": "A",
+            "description": "A",
+            "taskName": "A",
+            "type": "A"
         },
         {
-            "duration": 1000,
-            "subject": "CPSC 210",
-            "description": "GUI",
-            "taskName": "Phase 4",
-            "type": "Project"
+            "duration": 2,
+            "subject": "B",
+            "description": "B",
+            "taskName": "B",
+            "type": "B"
         },
         {
-            "duration": 180,
-            "subject": "SCIE 113",
-            "description": "Deep Brain Stimulation",
-            "taskName": "Term Paper",
-            "type": "Assignment"
+            "duration": 3,
+            "subject": "C",
+            "description": "C",
+            "taskName": "C",
+            "type": "C"
         },
         {
-            "duration": 300,
-            "subject": "CPSC 121",
-            "description": "Proofs and Quantifiers",
-            "taskName": "Assignment 3",
-            "type": "Assignment"
-        },
-        {
-            "duration": 120,
-            "subject": "MATH 100",
-            "description": "Improper integrals",
-            "taskName": "Homework 8",
-            "type": "Homework"
-        },
-        {
-            "duration": 400,
-            "subject": "CPSC 210",
-            "description": "A1 - C3 (or something like that idk)",
-            "taskName": "Study for ITE2",
-            "type": "Study"
+            "duration": 4,
+            "subject": "D",
+            "description": "D",
+            "taskName": "D",
+            "type": "D"
         }
     ],
-    "frogWeight": 2
+    "frogWeight": 1
 }

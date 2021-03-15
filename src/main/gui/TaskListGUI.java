@@ -1,25 +1,18 @@
 package gui;
 
+import gui.listeners.*;
 import model.Task;
 import model.TaskList;
-import persistence.JsonReader;
-import persistence.JsonWriter;
 
 import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
-import java.awt.event.*;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
 
 public class TaskListGUI extends JPanel implements ListSelectionListener {
     private static final int WIDTH = 200;
     private static final int HEIGHT = 300;
-    private static final String JSON_STORE = "./data/tasklist.json";
 
     private JList list;
     private DefaultListModel listModel;
@@ -44,15 +37,13 @@ public class TaskListGUI extends JPanel implements ListSelectionListener {
     private JButton filterByTypeButton;
     private JButton showDetailsButton;
     private JScrollPane listScrollPane;
-    private JsonWriter jsonWriter = new JsonWriter(JSON_STORE);
-    private JsonReader jsonReader = new JsonReader(JSON_STORE);
-    private DeleteListener deleteListener = new DeleteListener();
-    private LoadListener loadListener = new LoadListener();
-    private EditNameListener editNameListener = new EditNameListener();
-    private EditSubjectListener editSubjectListener = new EditSubjectListener();
-    private EditTypeListener editTypeListener = new EditTypeListener();
-    private EditDurationListener editDurationListener = new EditDurationListener();
-    private EditDescriptionListener editDescriptionListener = new EditDescriptionListener();
+    private DeleteListener deleteListener = new DeleteListener(this);
+    private LoadListener loadListener = new LoadListener(this);
+    private EditNameListener editNameListener = new EditNameListener(this);
+    private EditSubjectListener editSubjectListener = new EditSubjectListener(this);
+    private EditTypeListener editTypeListener = new EditTypeListener(this);
+    private EditDurationListener editDurationListener = new EditDurationListener(this);
+    private EditDescriptionListener editDescriptionListener = new EditDescriptionListener(this);
     private FilterBySubjectListener filterBySubjectListener = new FilterBySubjectListener(this);
     private FilterByTypeListener filterByTypeListener = new FilterByTypeListener(this);
     private ShowDetailsListener showDetailsListener = new ShowDetailsListener(this);
@@ -60,10 +51,12 @@ public class TaskListGUI extends JPanel implements ListSelectionListener {
     public TaskListGUI() {
 
         panel = new JPanel();
+
         panel.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         add(panel);
 
         listModel = new DefaultListModel();
+
         addLists();
 
         createButtons();
@@ -82,7 +75,7 @@ public class TaskListGUI extends JPanel implements ListSelectionListener {
         deleteButton.addActionListener(deleteListener);
 
         saveButton = new JButton("Save");
-        saveButton.addActionListener(new SaveListener());
+        saveButton.addActionListener(new SaveListener(this));
 
         loadButton = new JButton("Load");
         loadButton.addActionListener(loadListener);
@@ -109,19 +102,19 @@ public class TaskListGUI extends JPanel implements ListSelectionListener {
     //EFFECTS: initialize the edit buttons, adding listeners to each of them
     private void initializeEditButtons() {
         editNameButton = new JButton("Edit Name");
-        editNameButton.addActionListener(new EditNameListener());
+        editNameButton.addActionListener(editNameListener);
 
         editSubjectButton = new JButton("Edit Subject");
-        editSubjectButton.addActionListener(new EditSubjectListener());
+        editSubjectButton.addActionListener(editSubjectListener);
 
         editTypeButton = new JButton("Edit Type");
-        editTypeButton.addActionListener(new EditTypeListener());
+        editTypeButton.addActionListener(editTypeListener);
 
         editDurationButton = new JButton("Edit Duration");
-        editDurationButton.addActionListener(new EditDurationListener());
+        editDurationButton.addActionListener(editDurationListener);
 
         editDescriptionButton = new JButton("Edit Description");
-        editDescriptionButton.addActionListener(new EditDescriptionListener());
+        editDescriptionButton.addActionListener(editDescriptionListener);
     }
 
     private void createPanel() {
@@ -165,7 +158,7 @@ public class TaskListGUI extends JPanel implements ListSelectionListener {
     }
 
     private void makeAddButton(JButton addButton) {
-        AddListener addListener = new AddListener(addButton);
+        AddListener addListener = new AddListener(addButton, this);
 
         addButton.addActionListener(addListener);
         addButton.setEnabled(false);
@@ -216,416 +209,7 @@ public class TaskListGUI extends JPanel implements ListSelectionListener {
     }
 
 
-    class SaveListener implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            saveTaskList();
-        }
-    }
-
-    // EFFECTS: saves the task list to file
-    private void saveTaskList() {
-        try {
-            jsonWriter.open();
-            jsonWriter.write(tl);
-            jsonWriter.close();
-            System.out.println("Saved task list to " + JSON_STORE);
-        } catch (FileNotFoundException e) {
-            System.out.println("Unable to write file: " + JSON_STORE);
-        }
-    }
-
-
-    //This listener is shared by the text field and the hire button.
-    class AddListener implements ActionListener, DocumentListener {
-        private boolean alreadyEnabled = false;
-        private JButton button;
-        Task task;
-
-        public AddListener(JButton button) {
-            this.button = button;
-        }
-
-        //Required by ActionListener.
-        public void actionPerformed(ActionEvent e) {
-            String name = newTaskName.getText();
-
-            //User didn't type in a unique name...
-            if (name.equals("") || alreadyInList(name)) {
-                Toolkit.getDefaultToolkit().beep();
-                newTaskName.requestFocusInWindow();
-                newTaskName.selectAll();
-                return;
-            }
-
-            int index = list.getSelectedIndex(); //get selected index
-            if (index == -1) { //no selection, so insert at beginning
-                index = 0;
-            } else {           //add after the selected item
-                index++;
-            }
-
-            addTask();
-
-            listModel.insertElementAt(newTaskName.getText(), index);
-            //If we just wanted to add to the end, we'd do this:
-            //listModel.addElement(employeeName.getText());
-
-            //Reset the text field.
-
-            resetTextFields();
-
-            //Select the new item and make it visible.
-            list.setSelectedIndex(index);
-            list.ensureIndexIsVisible(index);
-        }
-
-        private void addTask() {
-            task = new Task(newTaskName.getText());
-            task.setSubject(newSubject.getText());
-            task.setDuration(Integer.parseInt(newDuration.getText()));
-            task.setType(newType.getText());
-            task.setDescription(newDescription.getText());
-            tl.addTask(task);
-        }
-
-        protected boolean alreadyInList(String name) {
-            for (Task t : tl.getTasks()) {
-                if (t.getTaskName().equals(name)) {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-
-        //Required by DocumentListener.
-        public void insertUpdate(DocumentEvent e) {
-            enableButton();
-        }
-
-        //Required by DocumentListener.
-        public void removeUpdate(DocumentEvent e) {
-            handleEmptyTextField(e);
-        }
-
-        //Required by DocumentListener.
-        public void changedUpdate(DocumentEvent e) {
-            if (!handleEmptyTextField(e)) {
-                enableButton();
-            }
-        }
-
-        private void enableButton() {
-            if (!alreadyEnabled) {
-                button.setEnabled(true);
-            }
-        }
-
-        private boolean handleEmptyTextField(DocumentEvent e) {
-            if (e.getDocument().getLength() <= 0) {
-                button.setEnabled(false);
-                alreadyEnabled = false;
-                return true;
-            }
-            return false;
-        }
-    }
-
-    class DeleteListener implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
-            //This method can be called only if
-            //there's a valid selection
-            //so go ahead and remove whatever's selected.
-            int index = list.getSelectedIndex();
-
-            for (Task t : tl.getTasks()) {
-                if (listModel.get(index).equals(t.getTaskName())) {
-                    tl.removeTask(t);
-                    break;
-                }
-            }
-            listModel.remove(index);
-
-            int size = listModel.getSize();
-
-            if (size == 0) { //Nobody's left, disable firing.
-                deleteButton.setEnabled(false);
-
-            } else { //Select an index.
-                if (index == listModel.getSize()) {
-                    //removed item in last position
-                    index--;
-                }
-
-                list.setSelectedIndex(index);
-                list.ensureIndexIsVisible(index);
-            }
-        }
-    }
-
-    private class LoadListener implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            loadTaskList();
-            listModel.clear();
-            for (Task t : tl.getTasks()) {
-                listModel.addElement(t.getTaskName());
-            }
-
-        }
-    }
-
-    private class EditNameListener implements ActionListener, DocumentListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            Task task;
-            int index = list.getSelectedIndex();
-            task = tl.getTaskByName(listModel.get(index).toString());
-            task.setName(newTaskName.getText());
-            listModel.set(index, newTaskName.getText());
-            newTaskName.setText("");
-        }
-
-        @Override
-        public void insertUpdate(DocumentEvent e) {
-
-        }
-
-        @Override
-        public void removeUpdate(DocumentEvent e) {
-
-        }
-
-        @Override
-        public void changedUpdate(DocumentEvent e) {
-
-        }
-    }
-
-    private class EditSubjectListener implements ActionListener, DocumentListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            Task task;
-            int index = list.getSelectedIndex();
-            task = tl.getTaskByName(listModel.get(index).toString());
-            task.setSubject(newSubject.getText());
-            newSubject.setText("");
-        }
-
-        @Override
-        public void insertUpdate(DocumentEvent e) {
-
-        }
-
-        @Override
-        public void removeUpdate(DocumentEvent e) {
-
-        }
-
-        @Override
-        public void changedUpdate(DocumentEvent e) {
-
-        }
-    }
-
-    private class EditTypeListener implements ActionListener, DocumentListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            Task task;
-            int index = list.getSelectedIndex();
-            task = tl.getTaskByName(listModel.get(index).toString());
-            task.setType(newType.getText());
-            newType.setText("");
-        }
-
-        @Override
-        public void insertUpdate(DocumentEvent e) {
-
-        }
-
-        @Override
-        public void removeUpdate(DocumentEvent e) {
-
-        }
-
-        @Override
-        public void changedUpdate(DocumentEvent e) {
-
-        }
-    }
-
-    private class EditDurationListener implements ActionListener, DocumentListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            Task task;
-            int index = list.getSelectedIndex();
-            task = tl.getTaskByName(listModel.get(index).toString());
-            task.setDuration(Integer.parseInt(newDuration.getText()));
-            newDuration.setText("");
-        }
-
-        @Override
-        public void insertUpdate(DocumentEvent e) {
-
-        }
-
-        @Override
-        public void removeUpdate(DocumentEvent e) {
-
-        }
-
-        @Override
-        public void changedUpdate(DocumentEvent e) {
-
-        }
-    }
-
-    private class EditDescriptionListener implements ActionListener, DocumentListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            Task task;
-            int index = list.getSelectedIndex();
-            task = tl.getTaskByName(listModel.get(index).toString());
-            task.setDescription(newDescription.getText());
-            newDescription.setText("");
-        }
-
-        @Override
-        public void insertUpdate(DocumentEvent e) {
-
-        }
-
-        @Override
-        public void removeUpdate(DocumentEvent e) {
-
-        }
-
-        @Override
-        public void changedUpdate(DocumentEvent e) {
-
-        }
-    }
-
-    private class FilterBySubjectListener implements ActionListener, DocumentListener {
-
-        JPanel parent;
-
-        public FilterBySubjectListener(JPanel parent) {
-            this.parent = parent;
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            DefaultListModel listModel = new DefaultListModel();
-            JList list;
-
-            for (Task t : tl.getTasks()) {
-                if (t.getSubject().equals(newSubject.getText())) {
-                    listModel.addElement(t.getTaskName());
-                }
-            }
-            list = new JList(listModel);
-            list.setVisibleRowCount(5);
-            JScrollPane listScrollPane = new JScrollPane(list);
-            add(listScrollPane, BorderLayout.CENTER);
-
-            JOptionPane.showMessageDialog(parent, listScrollPane, "Subject: " + newSubject.getText(),
-                    JOptionPane.INFORMATION_MESSAGE);
-            newSubject.setText("");
-        }
-
-        @Override
-        public void insertUpdate(DocumentEvent e) {
-
-        }
-
-        @Override
-        public void removeUpdate(DocumentEvent e) {
-
-        }
-
-        @Override
-        public void changedUpdate(DocumentEvent e) {
-
-        }
-    }
-
-    private class FilterByTypeListener implements ActionListener, DocumentListener {
-
-        JPanel parent;
-
-        public FilterByTypeListener(JPanel parent) {
-            this.parent = parent;
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            DefaultListModel listModel = new DefaultListModel();
-            JList list;
-
-            for (Task t : tl.getTasks()) {
-                if (t.getType().equals(newType.getText())) {
-                    listModel.addElement(t.getTaskName());
-                }
-            }
-            list = new JList(listModel);
-            list.setVisibleRowCount(4);
-            JScrollPane listScrollPane = new JScrollPane(list);
-            add(listScrollPane, BorderLayout.CENTER);
-
-            JOptionPane.showMessageDialog(parent, listScrollPane, "Type: " + newType.getText(),
-                    JOptionPane.INFORMATION_MESSAGE);
-
-            newType.setText("");
-        }
-
-        @Override
-        public void insertUpdate(DocumentEvent e) {
-
-        }
-
-        @Override
-        public void removeUpdate(DocumentEvent e) {
-
-        }
-
-        @Override
-        public void changedUpdate(DocumentEvent e) {
-
-        }
-    }
-
-    private class ShowDetailsListener implements ActionListener {
-
-        JPanel parent;
-
-        public ShowDetailsListener(JPanel parent) {
-            this.parent = parent;
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            int index = list.getSelectedIndex();
-            for (Task t : tl.getTasks()) {
-                if (listModel.get(index).equals(t.getTaskName())) {
-                    //create pop-up of details
-                    JOptionPane.showMessageDialog(parent, "Name: " + t.getTaskName() + "\nSubject: "
-                            + t.getSubject() + "\nType: " + t.getType() + "\nDuration: " + t.getDuration()
-                            + "\nDescription: " + t.getDescription(), "Details", JOptionPane.INFORMATION_MESSAGE);
-                }
-            }
-        }
-    }
-
-    private void resetTextFields() {
+    public void resetTextFields() {
         newTaskName.requestFocusInWindow();
         newTaskName.setText("");
         newSubject.setText("");
@@ -649,20 +233,53 @@ public class TaskListGUI extends JPanel implements ListSelectionListener {
         add(listScrollPane, BorderLayout.CENTER);
     }
 
-    // MODIFIES: this
-    // EFFECTS: loads task list from file
-    private void loadTaskList() {
-        try {
-            tl = jsonReader.read();
-            System.out.println("Loaded saved list from " + JSON_STORE);
-        } catch (IOException e) {
-            System.out.println("Unable to read from file: " + JSON_STORE);
-        }
+    public void setDeleteButtonEnabled(boolean b) {
+        deleteButton.setEnabled(b);
     }
 
+
     @Override
+    //required by ListSelectionListener
     public void valueChanged(ListSelectionEvent e) {
 
+    }
+
+    //getters
+    public DefaultListModel getListModel() {
+        return listModel;
+    }
+
+    public TaskList getTl() {
+        return tl;
+    }
+
+    public JList getList() {
+        return list;
+    }
+
+    public JTextField getNewTaskName() {
+        return newTaskName;
+    }
+
+    public JTextField getNewSubject() {
+        return newSubject;
+    }
+
+    public JTextField getNewType() {
+        return newType;
+    }
+
+    public JTextField getNewDuration() {
+        return newDuration;
+    }
+
+    public JTextField getNewDescription() {
+        return newDescription;
+    }
+
+    //setters
+    public void setTl(TaskList tl) {
+        this.tl = tl;
     }
 
 
