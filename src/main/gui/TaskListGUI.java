@@ -5,13 +5,9 @@ import model.Task;
 import model.TaskList;
 
 import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
@@ -58,35 +54,20 @@ public class TaskListGUI extends JPanel implements ListSelectionListener, Window
     public TaskListGUI(JFrame parent) {
         parent.addWindowListener(this);
         panel = new JPanel();
-
         panel.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         add(panel);
 
         askToLoad();
 
         listModel = new DefaultListModel();
-
         addLists();
 
         createButtons();
-
         createPanel();
         createTextPanel();
-
         add(textPanel, BorderLayout.SOUTH);
     }
 
-    //MODIFIES: this
-    //EFFECTS: creates a pop-up window which asks whether the user wants to load previous file
-    private void askToLoad() {
-
-        int result = JOptionPane.showConfirmDialog(null,
-                "Do you want to load your saved file?", null, JOptionPane.YES_NO_OPTION);
-        if (result == JOptionPane.YES_OPTION) {
-            loadListener.loadTaskList();
-        }
-
-    }
 
     //EFFECTS: creates all the buttons in the panel
     private void createButtons() {
@@ -266,6 +247,68 @@ public class TaskListGUI extends JPanel implements ListSelectionListener, Window
 
     }
 
+
+    //MODIFIES: this
+    //EFFECTS: creates a pop-up window which asks whether the user wants to load previous file
+    private void askToLoad() {
+
+        int result = JOptionPane.showConfirmDialog(null,
+                "Do you want to load your saved file?", null, JOptionPane.YES_NO_OPTION);
+        if (result == JOptionPane.YES_OPTION) {
+            loadListener.loadTaskList();
+        }
+
+    }
+
+    @Override
+    //required by WindowListener
+    public void windowOpened(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+        int result = JOptionPane.showConfirmDialog(null,
+                "Do you want to save your file?", null, JOptionPane.YES_NO_OPTION);
+        if (result == JOptionPane.YES_OPTION) {
+            SaveListener saveListener = new SaveListener(this);
+            saveListener.saveTaskList();
+            System.exit(0);
+        } else {
+            System.exit(0);
+        }
+    }
+
+    @Override
+    //required by WindowListener
+    public void windowClosed(WindowEvent e) {
+
+    }
+
+    @Override
+    //required by WindowListener
+    public void windowIconified(WindowEvent e) {
+
+    }
+
+    @Override
+    //required by WindowListener
+    public void windowDeiconified(WindowEvent e) {
+
+    }
+
+    @Override
+    //required by WindowListener
+    public void windowActivated(WindowEvent e) {
+
+    }
+
+    @Override
+    //required by WindowListener
+    public void windowDeactivated(WindowEvent e) {
+
+    }
+
     //getters
     public DefaultListModel getListModel() {
         return listModel;
@@ -306,48 +349,5 @@ public class TaskListGUI extends JPanel implements ListSelectionListener, Window
     //setters
     public void setTl(TaskList tl) {
         this.tl = tl;
-    }
-
-
-    @Override
-    public void windowOpened(WindowEvent e) {
-
-    }
-
-    @Override
-    public void windowClosing(WindowEvent e) {
-        int result = JOptionPane.showConfirmDialog(null,
-                "Do you want to save your file?", null, JOptionPane.YES_NO_OPTION);
-        if (result == JOptionPane.YES_OPTION) {
-            SaveListener saveListener = new SaveListener(this);
-            saveListener.saveTaskList();
-        } else {
-            System.exit(0);
-        }
-    }
-
-    @Override
-    public void windowClosed(WindowEvent e) {
-
-    }
-
-    @Override
-    public void windowIconified(WindowEvent e) {
-
-    }
-
-    @Override
-    public void windowDeiconified(WindowEvent e) {
-
-    }
-
-    @Override
-    public void windowActivated(WindowEvent e) {
-
-    }
-
-    @Override
-    public void windowDeactivated(WindowEvent e) {
-
     }
 }

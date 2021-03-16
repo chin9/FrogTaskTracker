@@ -90,6 +90,13 @@
             "description": "F",
             "taskName": "F",
             "type": "F"
+        },
+        {
+            "duration": 90,
+            "subject": "MATH 101",
+            "description": "I forgot",
+            "taskName": "Homework 8",
+            "type": "Homework"
         }
     ],
     "frogWeight": 3
