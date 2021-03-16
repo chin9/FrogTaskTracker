@@ -36,6 +36,55 @@
             "type": "E"
         },
         {
+            "duration": 1000,
+            "subject": "CPSC 210",
+            "description": "Implement a GUI",
+            "taskName": "Phase 3",
+            "type": "Project"
+        },
+        {
+            "duration": 2000,
+            "subject": "A",
+            "description": "hohoho",
+            "taskName": "Term Paper",
+            "type": "B"
+        },
+        {
+            "duration": 300,
+            "subject": "CPSC 210",
+            "description": "A - C3???",
+            "taskName": "ITE2",
+            "type": "Study "
+        },
+        {
+            "duration": 400,
+            "subject": "CPSC 121",
+            "description": "Direct proofs and quantifier things...",
+            "taskName": "Assignment 3",
+            "type": "Assignment"
+        },
+        {
+            "duration": 200,
+            "subject": "MATH 101",
+            "description": "Convergence things I don't even know what is going on!!",
+            "taskName": "Midterm 3",
+            "type": "Study"
+        },
+        {
+            "duration": 60,
+            "subject": "SCIE 113",
+            "description": "Reviewed term paper for two classmates.",
+            "taskName": "Peer Review Worksheet",
+            "type": "Homework"
+        },
+        {
+            "duration": 100,
+            "subject": "Woohoo",
+            "description": "Woot",
+            "taskName": "Yeah",
+            "type": "I want summer break :c"
+        },
+        {
             "duration": 6,
             "subject": "F",
             "description": "F",
@@ -43,5 +92,5 @@
             "type": "F"
         }
     ],
-    "frogWeight": 2
+    "frogWeight": 3
 }

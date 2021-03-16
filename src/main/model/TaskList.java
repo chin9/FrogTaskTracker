@@ -24,7 +24,6 @@ public class TaskList implements Writable {
     public void addTask(Task t) {
         tl.add(t);
         frogWeight = 1 + tl.size() / 5;
-        System.out.println("Task added.");
     }
 
     //REQUIRES: t must be a task in the list

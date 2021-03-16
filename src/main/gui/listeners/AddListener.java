@@ -1,7 +1,6 @@
 package gui.listeners;
 
 import gui.TaskListGUI;
-import javafx.scene.input.InputMethodTextRun;
 import model.Task;
 import model.TaskList;
 
@@ -19,24 +18,14 @@ public class AddListener implements ActionListener, DocumentListener {
     Task task;
     TaskList tl;
     TaskListGUI gui;
-    JTextField newTaskName;
     JList list;
     DefaultListModel listModel;
-    private JTextField newSubject;
-    private JTextField newDuration;
-    private JTextField newType;
-    private JTextField newDescription;
 
 
-    public AddListener(JButton button, TaskListGUI gui) {
-        this.button = button;
+    public AddListener(TaskListGUI gui) {
+        this.button = gui.getAddButton();
         this.gui = gui;
         tl = gui.getTl();
-        newTaskName = gui.getNewTaskName();
-        newSubject = gui.getNewSubject();
-        newDuration = gui.getNewDuration();
-        newType = gui.getNewType();
-        newDescription = gui.getNewDescription();
         list = gui.getList();
         listModel = gui.getListModel();
     }
@@ -44,6 +33,11 @@ public class AddListener implements ActionListener, DocumentListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
+        JTextField newTaskName = gui.getNewTaskName();
+        JTextField newSubject = gui.getNewSubject();
+        JTextField newDuration = gui.getNewDuration();
+        JTextField newType = gui.getNewType();
+        JTextField newDescription = gui.getNewDescription();
 
         String name = newTaskName.getText();
 
@@ -62,9 +56,9 @@ public class AddListener implements ActionListener, DocumentListener {
             index++;
         }
 
-        addTask();
+        addTask(newTaskName.getText(), newSubject.getText(), newType.getText(), newDuration.getText(),
+                newDescription.getText());
 
-        listModel.addElement(newTaskName.getText());
 
         //Reset the text field.
 
@@ -75,16 +69,19 @@ public class AddListener implements ActionListener, DocumentListener {
         list.ensureIndexIsVisible(index);
     }
 
-
-    private void addTask() {
-        task = new Task(newTaskName.getText());
-        task.setSubject(newSubject.getText());
-        task.setDuration(Integer.parseInt(newDuration.getText()));
-        task.setType(newType.getText());
-        task.setDescription(newDescription.getText());
+    //MODIFIES: this
+    //EFFECTS: add a task with corresponding name, subject, type, duration, and description
+    private void addTask(String name, String subject, String type, String duration, String description) {
+        task = new Task(name);
+        task.setSubject(subject);
+        task.setDuration(Integer.parseInt(duration));
+        task.setType(type);
+        task.setDescription(description);
         tl.addTask(task);
+        listModel.addElement(name);
     }
 
+    //EFFECTS: if a task with given name is in the list, return true, otherwise return false
     protected boolean alreadyInList(String name) {
         for (Task t : tl.getTasks()) {
             if (t.getTaskName().equals(name)) {
@@ -118,6 +115,8 @@ public class AddListener implements ActionListener, DocumentListener {
         }
     }
 
+    //MODIFIES: this
+    //EFFECTS: if the name text field is empty, do not enable button, otherwise enable button
     private boolean handleEmptyTextField(DocumentEvent e) {
         if (e.getDocument().getLength() <= 0) {
             button.setEnabled(false);

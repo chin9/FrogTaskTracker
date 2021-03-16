@@ -12,14 +12,17 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 
-public class TaskListGUI extends JPanel implements ListSelectionListener, DocumentListener {
+public class TaskListGUI extends JPanel implements ListSelectionListener, WindowListener {
     private static final int WIDTH = 200;
     private static final int HEIGHT = 300;
 
     private JList list;
     private DefaultListModel listModel;
+    private JFrame parent;
     private JPanel panel;
     private JPanel textPanel;
     private TaskList tl = new TaskList();
@@ -52,12 +55,14 @@ public class TaskListGUI extends JPanel implements ListSelectionListener, Docume
     private FilterByTypeListener filterByTypeListener = new FilterByTypeListener(this);
     private ShowDetailsListener showDetailsListener = new ShowDetailsListener(this);
 
-    public TaskListGUI() {
-
+    public TaskListGUI(JFrame parent) {
+        parent.addWindowListener(this);
         panel = new JPanel();
 
         panel.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         add(panel);
+
+        askToLoad();
 
         listModel = new DefaultListModel();
 
@@ -71,6 +76,19 @@ public class TaskListGUI extends JPanel implements ListSelectionListener, Docume
         add(textPanel, BorderLayout.SOUTH);
     }
 
+    //MODIFIES: this
+    //EFFECTS: creates a pop-up window which asks whether the user wants to load previous file
+    private void askToLoad() {
+
+        int result = JOptionPane.showConfirmDialog(null,
+                "Do you want to load your saved file?", null, JOptionPane.YES_NO_OPTION);
+        if (result == JOptionPane.YES_OPTION) {
+            loadListener.loadTaskList();
+        }
+
+    }
+
+    //EFFECTS: creates all the buttons in the panel
     private void createButtons() {
         addButton = new JButton("Add");
         makeAddButton(addButton);
@@ -162,8 +180,7 @@ public class TaskListGUI extends JPanel implements ListSelectionListener, Docume
     }
 
     private void makeAddButton(JButton addButton) {
-        AddListener addListener = new AddListener(addButton);
-
+        AddListener addListener = new AddListener(this);
         addButton.addActionListener(addListener);
         addButton.setEnabled(false);
         initializeNameTextField(addListener);
@@ -171,8 +188,6 @@ public class TaskListGUI extends JPanel implements ListSelectionListener, Docume
         initializeTypeTextField(addListener);
         initializeDurationTextField(addListener);
         initializeDescriptionTextField(addListener);
-
-
     }
 
     private void initializeDescriptionTextField(AddListener addListener) {
@@ -212,7 +227,7 @@ public class TaskListGUI extends JPanel implements ListSelectionListener, Docume
         newTaskName.getDocument().addDocumentListener(addListener);
     }
 
-
+    //EFFECTS: resets all the text fields to a blank field
     public void resetTextFields() {
         newTaskName.requestFocusInWindow();
         newTaskName.setText("");
@@ -222,7 +237,8 @@ public class TaskListGUI extends JPanel implements ListSelectionListener, Docume
         newDescription.setText("");
     }
 
-
+    //MODIFIES: this
+    //EFFECTS: add the task names of each task in list to a scrolling panel, add the scrolling panel to the main panel
     public void addLists() {
         for (Task t : tl.getTasks()) {
             listModel.addElement(t.getTaskName());
@@ -234,9 +250,11 @@ public class TaskListGUI extends JPanel implements ListSelectionListener, Docume
         list.setVisibleRowCount(5);
 
         listScrollPane = new JScrollPane(list);
+        listScrollPane.setPreferredSize(new Dimension(200, 200));
         add(listScrollPane, BorderLayout.CENTER);
     }
 
+    //EFFECTS: call setEnabled on delete button given a boolean value
     public void setDeleteButtonEnabled(boolean b) {
         deleteButton.setEnabled(b);
     }
@@ -281,122 +299,55 @@ public class TaskListGUI extends JPanel implements ListSelectionListener, Docume
         return newDescription;
     }
 
+    public JButton getAddButton() {
+        return addButton;
+    }
+
     //setters
     public void setTl(TaskList tl) {
         this.tl = tl;
     }
 
-    @Override
-    public void insertUpdate(DocumentEvent e) {
-
-    }
 
     @Override
-    public void removeUpdate(DocumentEvent e) {
+    public void windowOpened(WindowEvent e) {
 
     }
 
     @Override
-    public void changedUpdate(DocumentEvent e) {
-
-    }
-
-
-    //This listener is shared by the text field and the hire button.
-    class AddListener implements ActionListener, DocumentListener {
-        private boolean alreadyEnabled = false;
-        private JButton button;
-        Task task;
-
-        public AddListener(JButton button) {
-            this.button = button;
-        }
-
-        //Required by ActionListener.
-        public void actionPerformed(ActionEvent e) {
-            String name = newTaskName.getText();
-
-            //User didn't type in a unique name...
-            if (name.equals("") || alreadyInList(name)) {
-                Toolkit.getDefaultToolkit().beep();
-                newTaskName.requestFocusInWindow();
-                newTaskName.selectAll();
-                return;
-            }
-
-            int index = list.getSelectedIndex(); //get selected index
-            if (index == -1) { //no selection, so insert at beginning
-                index = 0;
-            } else {           //add after the selected item
-                index++;
-            }
-
-            addTask();
-
-            listModel.insertElementAt(newTaskName.getText(), index);
-            //If we just wanted to add to the end, we'd do this:
-            //listModel.addElement(employeeName.getText());
-
-            //Reset the text field.
-
-            resetTextFields();
-
-            //Select the new item and make it visible.
-            list.setSelectedIndex(index);
-            list.ensureIndexIsVisible(index);
-        }
-
-        private void addTask() {
-            task = new Task(newTaskName.getText());
-            task.setSubject(newSubject.getText());
-            task.setDuration(Integer.parseInt(newDuration.getText()));
-            task.setType(newType.getText());
-            task.setDescription(newDescription.getText());
-            tl.addTask(task);
-        }
-
-        protected boolean alreadyInList(String name) {
-            for (Task t : tl.getTasks()) {
-                if (t.getTaskName().equals(name)) {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-
-        //Required by DocumentListener.
-        public void insertUpdate(DocumentEvent e) {
-            enableButton();
-        }
-
-        //Required by DocumentListener.
-        public void removeUpdate(DocumentEvent e) {
-            handleEmptyTextField(e);
-        }
-
-        //Required by DocumentListener.
-        public void changedUpdate(DocumentEvent e) {
-            if (!handleEmptyTextField(e)) {
-                enableButton();
-            }
-        }
-
-        private void enableButton() {
-            if (!alreadyEnabled) {
-                button.setEnabled(true);
-            }
-        }
-
-        private boolean handleEmptyTextField(DocumentEvent e) {
-            if (e.getDocument().getLength() <= 0) {
-                button.setEnabled(false);
-                alreadyEnabled = false;
-                return true;
-            }
-            return false;
+    public void windowClosing(WindowEvent e) {
+        int result = JOptionPane.showConfirmDialog(null,
+                "Do you want to save your file?", null, JOptionPane.YES_NO_OPTION);
+        if (result == JOptionPane.YES_OPTION) {
+            SaveListener saveListener = new SaveListener(this);
+            saveListener.saveTaskList();
+        } else {
+            System.exit(0);
         }
     }
 
+    @Override
+    public void windowClosed(WindowEvent e) {
 
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+
+    }
 }
