@@ -13,7 +13,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.List;
 
-public class TaskTracker extends JFrame implements ListSelectionListener{
+public class TaskTracker extends JFrame implements ListSelectionListener {
 
     public static final int WIDTH = 1000;
     public static final int HEIGHT = 700;
