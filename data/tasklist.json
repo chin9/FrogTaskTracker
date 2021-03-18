@@ -9,7 +9,7 @@
         },
         {
             "duration": 2,
-            "subject": "B",
+            "subject": "CPSC 210",
             "description": "B",
             "taskName": "B",
             "type": "B"
@@ -97,7 +97,14 @@
             "description": "I forgot",
             "taskName": "Homework 8",
             "type": "Homework"
+        },
+        {
+            "duration": 90,
+            "subject": "CPSC 210",
+            "description": "Associations",
+            "taskName": "Lab 8",
+            "type": "Lab"
         }
     ],
-    "frogWeight": 3
+    "frogWeight": 4
 }

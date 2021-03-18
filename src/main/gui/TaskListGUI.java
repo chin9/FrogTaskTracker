@@ -50,6 +50,8 @@ public class TaskListGUI extends JPanel implements ListSelectionListener, Window
     private FilterBySubjectListener filterBySubjectListener = new FilterBySubjectListener(this);
     private FilterByTypeListener filterByTypeListener = new FilterByTypeListener(this);
     private ShowDetailsListener showDetailsListener = new ShowDetailsListener(this);
+    private ImageIcon frogImage;
+    private JLabel weightLabel;
 
     public TaskListGUI(JFrame parent) {
         parent.addWindowListener(this);
@@ -58,13 +60,15 @@ public class TaskListGUI extends JPanel implements ListSelectionListener, Window
         add(panel);
 
         askToLoad();
-
         listModel = new DefaultListModel();
+
+        createImagePanel();
         addLists();
 
         createButtons();
         createPanel();
         createTextPanel();
+
         add(textPanel, BorderLayout.SOUTH);
     }
 
@@ -160,6 +164,17 @@ public class TaskListGUI extends JPanel implements ListSelectionListener, Window
         textPanel.add(newDescription);
     }
 
+    private void createImagePanel() {
+        JPanel imagePane = new JPanel();
+        imagePane.setLayout(new BoxLayout(imagePane, BoxLayout.PAGE_AXIS));
+        imagePane.setAlignmentY(CENTER_ALIGNMENT);
+        frogImage = new ImageIcon("./data/froggy.jpeg");
+        weightLabel = new JLabel(tl.getFrogWeight() + " kg!");
+        imagePane.add(new JLabel(frogImage));
+        imagePane.add(weightLabel);
+        add(imagePane, BorderLayout.BEFORE_FIRST_LINE);
+    }
+
     private void makeAddButton(JButton addButton) {
         AddListener addListener = new AddListener(this);
         addButton.addActionListener(addListener);
@@ -241,13 +256,6 @@ public class TaskListGUI extends JPanel implements ListSelectionListener, Window
     }
 
 
-    @Override
-    //required by ListSelectionListener
-    public void valueChanged(ListSelectionEvent e) {
-
-    }
-
-
     //MODIFIES: this
     //EFFECTS: creates a pop-up window which asks whether the user wants to load previous file
     private void askToLoad() {
@@ -309,6 +317,12 @@ public class TaskListGUI extends JPanel implements ListSelectionListener, Window
 
     }
 
+    @Override
+    //required by ListSelectionListener
+    public void valueChanged(ListSelectionEvent e) {
+
+    }
+
     //getters
     public DefaultListModel getListModel() {
         return listModel;
@@ -349,5 +363,9 @@ public class TaskListGUI extends JPanel implements ListSelectionListener, Window
     //setters
     public void setTl(TaskList tl) {
         this.tl = tl;
+    }
+
+    public void setFrogImage(ImageIcon frogImage) {
+        this.frogImage = frogImage;
     }
 }
