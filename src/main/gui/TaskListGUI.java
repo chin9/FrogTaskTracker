@@ -18,7 +18,6 @@ public class TaskListGUI extends JPanel implements ListSelectionListener, Window
 
     private JList list;
     private DefaultListModel listModel;
-    private JFrame parent;
     private JPanel panel;
     private JPanel textPanel;
     private TaskList tl = new TaskList();
@@ -50,8 +49,11 @@ public class TaskListGUI extends JPanel implements ListSelectionListener, Window
     private FilterBySubjectListener filterBySubjectListener = new FilterBySubjectListener(this);
     private FilterByTypeListener filterByTypeListener = new FilterByTypeListener(this);
     private ShowDetailsListener showDetailsListener = new ShowDetailsListener(this);
-    private ImageIcon frogImage;
+    private ImageIcon frogImage1;
+    private ImageIcon frogImage2;
+    private ImageIcon frogImage3;
     private JLabel weightLabel;
+    private JLabel frogLabel;
 
     public TaskListGUI(JFrame parent) {
         parent.addWindowListener(this);
@@ -168,9 +170,13 @@ public class TaskListGUI extends JPanel implements ListSelectionListener, Window
         JPanel imagePane = new JPanel();
         imagePane.setLayout(new BoxLayout(imagePane, BoxLayout.PAGE_AXIS));
         imagePane.setAlignmentY(CENTER_ALIGNMENT);
-        frogImage = new ImageIcon("./data/froggy.jpeg");
+        frogImage1 = new ImageIcon("./data/froggy.jpeg");
+        frogImage2 = new ImageIcon("./data/froggy2.jpeg");
+        frogImage3 = new ImageIcon("./data/froggy3.jpeg");
         weightLabel = new JLabel(tl.getFrogWeight() + " kg!");
-        imagePane.add(new JLabel(frogImage));
+        frogLabel = new JLabel();
+        updateFrogLabel();
+        imagePane.add(frogLabel);
         imagePane.add(weightLabel);
         add(imagePane, BorderLayout.BEFORE_FIRST_LINE);
     }
@@ -365,7 +371,19 @@ public class TaskListGUI extends JPanel implements ListSelectionListener, Window
         this.tl = tl;
     }
 
-    public void setFrogImage(ImageIcon frogImage) {
-        this.frogImage = frogImage;
+    //EFFECTS: set frog image according to weight
+    public void updateFrogLabel() {
+        int i = tl.getFrogWeight() % 3;
+        if (i == 0) {
+            frogLabel.setIcon(frogImage1);
+        } else if (i == 1) {
+            frogLabel.setIcon(frogImage2);
+        } else if (i == 2) {
+            frogLabel.setIcon(frogImage3);
+        }
+    }
+
+    public void updateWeightLabel() {
+        weightLabel = new JLabel(tl.getFrogWeight() + " kg!");
     }
 }

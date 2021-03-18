@@ -47,6 +47,9 @@ public class DeleteListener implements ActionListener {
 
             list.setSelectedIndex(index);
             list.ensureIndexIsVisible(index);
+
+            gui.updateFrogLabel();
+            gui.updateWeightLabel();
         }
     }
 

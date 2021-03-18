@@ -62,11 +62,17 @@ public class AddListener implements ActionListener, DocumentListener {
 
         //Reset the text field.
 
-        gui.resetTextFields();
+        refactorGUI();
 
         //Select the new item and make it visible.
         list.setSelectedIndex(index);
         list.ensureIndexIsVisible(index);
+    }
+
+    private void refactorGUI() {
+        gui.resetTextFields();
+        gui.updateFrogLabel();
+        gui.updateWeightLabel();
     }
 
     //MODIFIES: this
