@@ -13,8 +13,8 @@ import java.awt.event.WindowListener;
 
 
 public class TaskListGUI extends JPanel implements ListSelectionListener, WindowListener {
-    private static final int WIDTH = 200;
-    private static final int HEIGHT = 300;
+    private static final int WIDTH = 300;
+    private static final int HEIGHT = 400;
 
     private JList list;
     private DefaultListModel listModel;
@@ -384,6 +384,6 @@ public class TaskListGUI extends JPanel implements ListSelectionListener, Window
     }
 
     public void updateWeightLabel() {
-        weightLabel = new JLabel(tl.getFrogWeight() + " kg!");
+        weightLabel.setText(tl.getFrogWeight() + " kg!");
     }
 }

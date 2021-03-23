@@ -12,7 +12,7 @@
             "subject": "A",
             "description": "hohoho",
             "taskName": "Term Paper",
-            "type": "B"
+            "type": "Assignment"
         },
         {
             "duration": 300,
@@ -104,7 +104,42 @@
             "description": "C",
             "taskName": "C",
             "type": "C"
+        },
+        {
+            "duration": 70,
+            "subject": "MATH 101",
+            "description": "study the thing I forgot to learn.",
+            "taskName": "Webwork",
+            "type": "Study"
+        },
+        {
+            "duration": 4,
+            "subject": "D",
+            "description": "D",
+            "taskName": "D",
+            "type": "D"
+        },
+        {
+            "duration": 5,
+            "subject": "E",
+            "description": "E",
+            "taskName": "E",
+            "type": "E"
+        },
+        {
+            "duration": 6,
+            "subject": "F",
+            "description": "F",
+            "taskName": "F",
+            "type": "F"
+        },
+        {
+            "duration": 7,
+            "subject": "G",
+            "description": "G",
+            "taskName": "G",
+            "type": "G"
         }
     ],
-    "frogWeight": 4
+    "frogWeight": 5
 }
