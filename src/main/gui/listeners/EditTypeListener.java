@@ -14,10 +14,13 @@ public class EditTypeListener implements ActionListener, DocumentListener {
 
     private TaskListGUI gui;
 
+    //EFFECTS: constructs an EditTypeListener
     public EditTypeListener(TaskListGUI gui) {
         this.gui = gui;
     }
 
+    //MODIFIES: this
+    //EFFECTS: edits the type in selected task according to what is entered in the type text field
     @Override
     public void actionPerformed(ActionEvent e) {
         Task task;
@@ -32,6 +35,7 @@ public class EditTypeListener implements ActionListener, DocumentListener {
         newType.setText("");
     }
 
+    //required by DocumentListener
     @Override
     public void insertUpdate(DocumentEvent e) {
 

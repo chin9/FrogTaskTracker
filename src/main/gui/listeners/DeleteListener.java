@@ -12,14 +12,15 @@ public class DeleteListener implements ActionListener {
 
     TaskListGUI gui;
 
+    //EFFECTS: constructs a DeleteListener
     public DeleteListener(TaskListGUI parent) {
         this.gui = parent;
     }
 
+    //CITATION: ListDemo / https://docs.oracle.com/javase/tutorial/uiswing/examples/components/index.html
+    //MODIFIES: this
+    //EFFECTS: delete the selected task from the task list
     public void actionPerformed(ActionEvent e) {
-        //This method can be called only if
-        //there's a valid selection
-        //so go ahead and remove whatever's selected.
 
         JList list = gui.getList();
         TaskList tl = gui.getTl();
@@ -37,20 +38,26 @@ public class DeleteListener implements ActionListener {
 
         int size = listModel.getSize();
 
-        if (size == 0) { //Nobody's left, disable firing.
+        if (size == 0) {
             gui.setDeleteButtonEnabled(false);
-        } else { //Select an index.
+        } else {
             if (index == listModel.getSize()) {
-                //removed item in last position
+
                 index--;
             }
 
             list.setSelectedIndex(index);
             list.ensureIndexIsVisible(index);
 
-            gui.updateFrogLabel();
-            gui.updateWeightLabel();
+            updateGUI();
         }
+    }
+
+    //MODIFIES: this
+    //EFFECTS: updates the gui's image and weight label
+    private void updateGUI() {
+        gui.updateFrogLabel();
+        gui.updateWeightLabel();
     }
 
 }

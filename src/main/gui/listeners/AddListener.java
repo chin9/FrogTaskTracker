@@ -22,6 +22,7 @@ public class AddListener implements ActionListener, DocumentListener {
     DefaultListModel listModel;
 
 
+    //EFFECTS: constructs an AddListener
     public AddListener(TaskListGUI gui) {
         this.button = gui.getAddButton();
         this.gui = gui;
@@ -30,6 +31,9 @@ public class AddListener implements ActionListener, DocumentListener {
         listModel = gui.getListModel();
     }
 
+    //CITATION: ListDemo / https://docs.oracle.com/javase/tutorial/uiswing/examples/components/index.html
+    //MODIFIES: this
+    //EFFECTS: add a task to tl and display it according to the information entered in the text fields
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -49,10 +53,10 @@ public class AddListener implements ActionListener, DocumentListener {
             return;
         }
 
-        int index = list.getSelectedIndex(); //get selected index
-        if (index == -1) { //no selection, so insert at beginning
+        int index = list.getSelectedIndex();
+        if (index == -1) {
             index = 0;
-        } else {           //add after the selected item
+        } else {
             index++;
         }
 
@@ -60,16 +64,16 @@ public class AddListener implements ActionListener, DocumentListener {
                 newDescription.getText());
 
 
-        //Reset the text field.
 
-        refactorGUI();
+        updateGUI();
 
-        //Select the new item and make it visible.
         list.setSelectedIndex(index);
         list.ensureIndexIsVisible(index);
     }
 
-    private void refactorGUI() {
+    //MODIFIES: this
+    //EFFECTS: update the display by resetting text fields and updating image and weight display
+    private void updateGUI() {
         gui.resetTextFields();
         gui.updateFrogLabel();
         gui.updateWeightLabel();
@@ -115,6 +119,8 @@ public class AddListener implements ActionListener, DocumentListener {
         }
     }
 
+    //MODIFIES: this
+    //EFFECTS: enable the button
     private void enableButton() {
         if (!alreadyEnabled) {
             button.setEnabled(true);

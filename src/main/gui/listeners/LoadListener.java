@@ -17,11 +17,14 @@ public class LoadListener implements ActionListener {
     private TaskListGUI gui;
     private JsonReader jsonReader;
 
+    //EFFECTS: constructs a LoadListener
     public LoadListener(TaskListGUI gui) {
         this.gui = gui;
         jsonReader = new JsonReader(JSON_STORE);
     }
 
+    //MODIFIES: this
+    //EFFECTS: load the task list from JSON_STORE
     @Override
     public void actionPerformed(ActionEvent e) {
         loadTaskList();

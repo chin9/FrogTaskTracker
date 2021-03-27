@@ -14,10 +14,13 @@ public class EditNameListener implements ActionListener, DocumentListener {
 
     private TaskListGUI gui;
 
+    //EFFECTS: constructs an EditNameListener
     public EditNameListener(TaskListGUI gui) {
         this.gui = gui;
     }
 
+    //MODIFIES: this
+    //EFFECTS: edits the name in selected task according to what is entered in the name text field
     @Override
     public void actionPerformed(ActionEvent e) {
         Task task;
@@ -35,6 +38,7 @@ public class EditNameListener implements ActionListener, DocumentListener {
         newTaskName.setText("");
     }
 
+    //required by DocumentListener
     @Override
     public void insertUpdate(DocumentEvent e) {
 

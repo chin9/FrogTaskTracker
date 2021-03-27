@@ -14,10 +14,13 @@ public class EditDurationListener implements ActionListener, DocumentListener {
 
     private TaskListGUI gui;
 
+    //EFFECTS: constructs an EditDurationListener
     public EditDurationListener(TaskListGUI gui) {
         this.gui = gui;
     }
 
+    //MODIFIES: this
+    //EFFECTS: edits the duration in selected task according to what is entered in the duration text field
     @Override
     public void actionPerformed(ActionEvent e) {
         Task task;
@@ -32,6 +35,7 @@ public class EditDurationListener implements ActionListener, DocumentListener {
         newDuration.setText("");
     }
 
+    //required by DocumentListener
     @Override
     public void insertUpdate(DocumentEvent e) {
 

@@ -9,12 +9,12 @@ public class TaskTrackerGUI extends JFrame {
     private TaskList tl;
     private TaskListGUI tlg;
 
+    //EFFECTS: constructs the main window
     public TaskTrackerGUI() {
         super("Task Tracker UI");
         JComponent newContentPane = new TaskListGUI(this);
-        newContentPane.setOpaque(true); //content panes must be opaque
+        newContentPane.setOpaque(true);
         setContentPane(newContentPane);
-        //setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         //Display the window.
         pack();

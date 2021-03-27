@@ -14,10 +14,13 @@ public class EditSubjectListener implements ActionListener, DocumentListener {
 
     private TaskListGUI gui;
 
+    //EFFECTS: constructs an EditSubjectListener
     public EditSubjectListener(TaskListGUI gui) {
         this.gui = gui;
     }
 
+    //MODIFIES: this
+    //EFFECTS: edits the subject in selected task according to what is entered in the subject text field
     @Override
     public void actionPerformed(ActionEvent e) {
         Task task;
@@ -32,6 +35,7 @@ public class EditSubjectListener implements ActionListener, DocumentListener {
         newSubject.setText("");
     }
 
+    //required by DocumentListener
     @Override
     public void insertUpdate(DocumentEvent e) {
 

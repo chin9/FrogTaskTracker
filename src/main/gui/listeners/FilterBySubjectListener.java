@@ -14,12 +14,15 @@ import java.awt.event.ActionListener;
 public class FilterBySubjectListener implements ActionListener, DocumentListener {
 
 
-    TaskListGUI gui;
+    private TaskListGUI gui;
 
+    //EFFECTS: constructs a FilterBySubjectListener
     public FilterBySubjectListener(TaskListGUI gui) {
         this.gui = gui;
     }
 
+    //EFFECTS: this
+    //EFFECTS: in a pop-up, display a list of all the tasks that have the subject entered in the text field
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -44,6 +47,7 @@ public class FilterBySubjectListener implements ActionListener, DocumentListener
         newSubject.setText("");
     }
 
+    //required by DocumentListener
     @Override
     public void insertUpdate(DocumentEvent e) {
 

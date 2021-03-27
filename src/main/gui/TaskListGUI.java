@@ -55,6 +55,7 @@ public class TaskListGUI extends JPanel implements ListSelectionListener, Window
     private JLabel weightLabel;
     private JLabel frogLabel;
 
+    //EFFECTS: constructs the TaskListGUI
     public TaskListGUI(JFrame parent) {
         parent.addWindowListener(this);
         panel = new JPanel();
@@ -68,13 +69,13 @@ public class TaskListGUI extends JPanel implements ListSelectionListener, Window
         addLists();
 
         createButtons();
-        createPanel();
+        createButtonPanel();
         createTextPanel();
 
         add(textPanel, BorderLayout.SOUTH);
     }
 
-
+    //MODIFIES: this
     //EFFECTS: creates all the buttons in the panel
     private void createButtons() {
         addButton = new JButton("Add");
@@ -126,8 +127,9 @@ public class TaskListGUI extends JPanel implements ListSelectionListener, Window
         editDescriptionButton.addActionListener(editDescriptionListener);
     }
 
-    private void createPanel() {
-        //Create a panel that uses BoxLayout.
+    //MODIFIES: this
+    //EFFECTS: create the panel that contains all the buttons
+    private void createButtonPanel() {
         JPanel buttonPane = new JPanel();
         buttonPane.setLayout(new BoxLayout(buttonPane,
                 BoxLayout.Y_AXIS));
@@ -150,6 +152,8 @@ public class TaskListGUI extends JPanel implements ListSelectionListener, Window
         add(buttonPane);
     }
 
+    //MODIFIES: this
+    //EFFECTS: create a panel that includes the text fields and their labels
     private void createTextPanel() {
         textPanel = new JPanel();
         textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
@@ -166,13 +170,22 @@ public class TaskListGUI extends JPanel implements ListSelectionListener, Window
         textPanel.add(newDescription);
     }
 
+    //MODIFIES: this
+    //EFFECTS: create a panel for the frog images
     private void createImagePanel() {
         JPanel imagePane = new JPanel();
         imagePane.setLayout(new BoxLayout(imagePane, BoxLayout.PAGE_AXIS));
         imagePane.setAlignmentY(CENTER_ALIGNMENT);
+
         frogImage1 = new ImageIcon("./data/froggy.jpeg");
         frogImage2 = new ImageIcon("./data/froggy2.jpeg");
         frogImage3 = new ImageIcon("./data/froggy3.jpeg");
+        /* images taken from:
+           - froggy.jpeg: https://www.facebook.com/101584028338173/posts/peppa-pig-frog-sticker-new-peppa-pig-frog-sticker
+             is-now-out-in-my-store-click-t/111198367376739/
+           - froggy2.jpeg: https://peppapig.fandom.com/wiki/Frog
+           - froggy3.jpeg: https://www.pinterest.com/pin/714383559636071168/
+         */
         weightLabel = new JLabel(tl.getFrogWeight() + " kg!");
         frogLabel = new JLabel();
         updateFrogLabel();
@@ -181,6 +194,8 @@ public class TaskListGUI extends JPanel implements ListSelectionListener, Window
         add(imagePane, BorderLayout.BEFORE_FIRST_LINE);
     }
 
+    //MODIFIES: this
+    //EFFECTS: make the button for add function
     private void makeAddButton(JButton addButton) {
         AddListener addListener = new AddListener(this);
         addButton.addActionListener(addListener);
@@ -192,6 +207,8 @@ public class TaskListGUI extends JPanel implements ListSelectionListener, Window
         initializeDescriptionTextField(addListener);
     }
 
+    //MODIFIES: this
+    //EFFECTS: initialize the "description" text field, adding listeners for "add" and "edit"
     private void initializeDescriptionTextField(AddListener addListener) {
         newDescription = new JTextField(10);
         newDescription.addActionListener(addListener);
@@ -199,6 +216,8 @@ public class TaskListGUI extends JPanel implements ListSelectionListener, Window
         newDescription.getDocument().addDocumentListener(addListener);
     }
 
+    //MODIFIES: this
+    //EFFECTS: initialize the "duration" text field, adding listeners for "add" and "edit"
     private void initializeDurationTextField(AddListener addListener) {
         newDuration = new JTextField(10);
         newDuration.addActionListener(addListener);
@@ -206,6 +225,8 @@ public class TaskListGUI extends JPanel implements ListSelectionListener, Window
         newDuration.getDocument().addDocumentListener(addListener);
     }
 
+    //MODIFIES: this
+    //EFFECTS: initialize the "type" text field, adding listeners for "add" and "edit"
     private void initializeTypeTextField(AddListener addListener) {
         newType = new JTextField(10);
         newType.addActionListener(addListener);
@@ -214,6 +235,8 @@ public class TaskListGUI extends JPanel implements ListSelectionListener, Window
         newType.getDocument().addDocumentListener(addListener);
     }
 
+    //MODIFIES: this
+    //EFFECTS: initialize the "subject" text field, adding listeners for "add" and "edit"
     private void initializeSubjectTextField(AddListener addListener) {
         newSubject = new JTextField(10);
         newSubject.addActionListener(addListener);
@@ -222,6 +245,8 @@ public class TaskListGUI extends JPanel implements ListSelectionListener, Window
         newSubject.getDocument().addDocumentListener(addListener);
     }
 
+    //MODIFIES: this
+    //EFFECTS: initialize the "name" text field, adding listeners for "add" and "edit"
     private void initializeNameTextField(AddListener addListener) {
         newTaskName = new JTextField(10);
         newTaskName.addActionListener(addListener);
@@ -229,6 +254,7 @@ public class TaskListGUI extends JPanel implements ListSelectionListener, Window
         newTaskName.getDocument().addDocumentListener(addListener);
     }
 
+    //MODIFIES: this
     //EFFECTS: resets all the text fields to a blank field
     public void resetTextFields() {
         newTaskName.requestFocusInWindow();
@@ -240,7 +266,7 @@ public class TaskListGUI extends JPanel implements ListSelectionListener, Window
     }
 
     //MODIFIES: this
-    //EFFECTS: add the task names of each task in list to a scrolling panel, add the scrolling panel to the main panel
+    //EFFECTS: add the task names of each task in tl to a scrolling panel, add the scrolling panel to the main panel
     public void addLists() {
         for (Task t : tl.getTasks()) {
             listModel.addElement(t.getTaskName());
@@ -256,11 +282,11 @@ public class TaskListGUI extends JPanel implements ListSelectionListener, Window
         add(listScrollPane, BorderLayout.CENTER);
     }
 
+    //MODIFIES: this
     //EFFECTS: call setEnabled on delete button given a boolean value
     public void setDeleteButtonEnabled(boolean b) {
         deleteButton.setEnabled(b);
     }
-
 
     //MODIFIES: this
     //EFFECTS: creates a pop-up window which asks whether the user wants to load previous file
@@ -280,6 +306,8 @@ public class TaskListGUI extends JPanel implements ListSelectionListener, Window
 
     }
 
+    //MODIFIES: this
+    //EFFECTS: when the window closes, ask user if they want to save current file
     @Override
     public void windowClosing(WindowEvent e) {
         int result = JOptionPane.showConfirmDialog(null,
@@ -293,40 +321,23 @@ public class TaskListGUI extends JPanel implements ListSelectionListener, Window
         }
     }
 
-    @Override
-    //required by WindowListener
-    public void windowClosed(WindowEvent e) {
-
+    //MODIFIES: this
+    //EFFECTS: set frog image according to frog's weight
+    public void updateFrogLabel() {
+        int i = tl.getFrogWeight() % 3;
+        if (i == 0) {
+            frogLabel.setIcon(frogImage1);
+        } else if (i == 1) {
+            frogLabel.setIcon(frogImage2);
+        } else if (i == 2) {
+            frogLabel.setIcon(frogImage3);
+        }
     }
 
-    @Override
-    //required by WindowListener
-    public void windowIconified(WindowEvent e) {
-
-    }
-
-    @Override
-    //required by WindowListener
-    public void windowDeiconified(WindowEvent e) {
-
-    }
-
-    @Override
-    //required by WindowListener
-    public void windowActivated(WindowEvent e) {
-
-    }
-
-    @Override
-    //required by WindowListener
-    public void windowDeactivated(WindowEvent e) {
-
-    }
-
-    @Override
-    //required by ListSelectionListener
-    public void valueChanged(ListSelectionEvent e) {
-
+    //MODIFIES: this
+    //EFFECTS: update the frog weight displayed
+    public void updateWeightLabel() {
+        weightLabel.setText(tl.getFrogWeight() + " kg!");
     }
 
     //getters
@@ -371,19 +382,41 @@ public class TaskListGUI extends JPanel implements ListSelectionListener, Window
         this.tl = tl;
     }
 
-    //EFFECTS: set frog image according to weight
-    public void updateFrogLabel() {
-        int i = tl.getFrogWeight() % 3;
-        if (i == 0) {
-            frogLabel.setIcon(frogImage1);
-        } else if (i == 1) {
-            frogLabel.setIcon(frogImage2);
-        } else if (i == 2) {
-            frogLabel.setIcon(frogImage3);
-        }
+
+
+    @Override
+    //required by WindowListener
+    public void windowClosed(WindowEvent e) {
+
     }
 
-    public void updateWeightLabel() {
-        weightLabel.setText(tl.getFrogWeight() + " kg!");
+    @Override
+    //required by WindowListener
+    public void windowIconified(WindowEvent e) {
+
+    }
+
+    @Override
+    //required by WindowListener
+    public void windowDeiconified(WindowEvent e) {
+
+    }
+
+    @Override
+    //required by WindowListener
+    public void windowActivated(WindowEvent e) {
+
+    }
+
+    @Override
+    //required by WindowListener
+    public void windowDeactivated(WindowEvent e) {
+
+    }
+
+    @Override
+    //required by ListSelectionListener
+    public void valueChanged(ListSelectionEvent e) {
+
     }
 }

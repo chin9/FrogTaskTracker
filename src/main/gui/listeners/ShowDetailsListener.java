@@ -12,10 +12,12 @@ public class ShowDetailsListener implements ActionListener {
 
     TaskListGUI gui;
 
+    //EFFECTS: constructs a ShowDetailsListener
     public ShowDetailsListener(TaskListGUI gui) {
         this.gui = gui;
     }
 
+    //EFFECTS: in a pop-up window, show all the properties of the selected task
     @Override
     public void actionPerformed(ActionEvent e) {
         JList list = gui.getList();

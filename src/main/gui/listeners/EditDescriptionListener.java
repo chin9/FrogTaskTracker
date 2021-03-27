@@ -14,10 +14,13 @@ public class EditDescriptionListener implements ActionListener, DocumentListener
 
     private TaskListGUI gui;
 
+    //EFFECTS: constructs a new EditDescriptionListener
     public EditDescriptionListener(TaskListGUI gui) {
         this.gui = gui;
     }
 
+    //MODIFIES: this
+    //EFFECTS: edits the description in selected task according to what is entered in the description text field
     @Override
     public void actionPerformed(ActionEvent e) {
         Task task;
@@ -32,6 +35,7 @@ public class EditDescriptionListener implements ActionListener, DocumentListener
         newDescription.setText("");
     }
 
+    //required by DocumentListener
     @Override
     public void insertUpdate(DocumentEvent e) {
 

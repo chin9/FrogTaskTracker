@@ -15,17 +15,21 @@ public class SaveListener implements ActionListener {
     private TaskListGUI parent;
     private JsonWriter jsonWriter;
 
+    //EFFECTS: constructs a SaveListener
     public SaveListener(TaskListGUI parent) {
         this.parent = parent;
         jsonWriter = new JsonWriter(JSON_STORE);
     }
 
+    //MODIFIES: this
+    //EFFECTS: save current task list to JSON_STORE
     @Override
     public void actionPerformed(ActionEvent e) {
         saveTaskList();
     }
 
 
+    //MODIFIES: this
     // EFFECTS: saves the task list to file
     public void saveTaskList() {
         try {
