@@ -1,5 +1,6 @@
 package gui.listeners;
 
+import exception.TaskNotFoundException;
 import gui.TaskListGUI;
 import model.Task;
 import model.TaskList;
@@ -28,12 +29,8 @@ public class DeleteListener implements ActionListener {
 
         int index = list.getSelectedIndex();
 
-        for (Task t : tl.getTasks()) {
-            if (listModel.get(index).equals(t.getTaskName())) {
-                tl.removeTask(t);
-                break;
-            }
-        }
+        removeTaskFromTaskList(tl, listModel, index);
+
         listModel.remove(index);
 
         int size = listModel.getSize();
@@ -50,6 +47,21 @@ public class DeleteListener implements ActionListener {
             list.ensureIndexIsVisible(index);
 
             updateGUI();
+        }
+    }
+
+    //MODIFIES: this
+    //EFFECTS: removes selected task from tl
+    private void removeTaskFromTaskList(TaskList tl, DefaultListModel listModel, int index) {
+        for (Task t : tl.getTasks()) {
+            if (listModel.get(index).equals(t.getTaskName())) {
+                try {
+                    tl.removeTask(t);
+                } catch (TaskNotFoundException exception) {
+                    System.out.println("Task not found!");
+                }
+                break;
+            }
         }
     }
 

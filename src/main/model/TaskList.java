@@ -1,5 +1,8 @@
 package model;
 
+import exception.SubjectNotFoundException;
+import exception.TaskNotFoundException;
+import exception.TypeNotFoundException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
@@ -26,11 +29,15 @@ public class TaskList implements Writable {
         frogWeight = 1 + tl.size() / 5;
     }
 
-    //REQUIRES: t must be a task in the list
+
     //MODIFIES: this
-    //EFFECTS: removes given task from list
-    //         adjust frog's weight; -1 for every five tasks removed
-    public void removeTask(Task t) {
+    //EFFECTS: if given t is not in tl, throw TaskNotFoundException
+    // //      otherwise, remove given task from list
+    //         and adjust frog's weight; -1 for every five tasks removed
+    public void removeTask(Task t) throws TaskNotFoundException {
+        if (!tl.contains(t)) {
+            throw new TaskNotFoundException();
+        }
         tl.remove(t);
         frogWeight = 1 + tl.size() / 5;
     }
@@ -52,23 +59,48 @@ public class TaskList implements Writable {
     }
 
     //REQUIRES: type must be an existing type in list
-    //EFFECTS: returns the names of all the tasks of given type
-    public String displayTasksOfType(String type) {
-
+    //EFFECTS: if type is not already an existing type, throw TypeNotFoundException;
+    //         otherwise, return the names of all the tasks of given type
+    public String displayTasksOfType(String type) throws TypeNotFoundException {
+        boolean hasType = false;
         String taskNames = "";
+
+        for (Task t : tl) {
+            if (t.getType().equals(type)) {
+                hasType = true;
+            }
+        }
+
+        if (hasType == false) {
+            throw new TypeNotFoundException();
+        }
 
         for (Task t : tl) {
             if (t.getType().equals(type)) {
                 taskNames = taskNames + t.getTaskName() + "\n";
             }
         }
+
+
         return taskNames;
     }
 
-    //REQUIRES: subject must be an existing subject in list
-    //EFFECTS: returns the names of all the tasks of given subject
-    public String displayTasksOfSubject(String sub) {
+
+    //EFFECTS: if subject is not an existing subject in list, throw SubjectNotFoundException
+    //         returns the names of all the tasks of given subject
+    public String displayTasksOfSubject(String sub) throws SubjectNotFoundException {
+        boolean hasSubject = false;
         String taskNames = "";
+
+        for (Task t : tl) {
+            if (t.getSubject().equals(sub)) {
+                hasSubject = true;
+            }
+        }
+
+        if (hasSubject == false) {
+            throw new SubjectNotFoundException();
+        }
 
         for (Task t : tl) {
             if (t.getSubject().equals(sub)) {
@@ -97,10 +129,14 @@ public class TaskList implements Writable {
         return null;
     }
 
-    //REQUIRES: given task must exist in list
+
     //MODIFIES: t
-    //EFFECTS: changes the given task's name to n
-    public void editTaskName(Task t, String n) {
+    //EFFECTS: if given task is not in list, throw TaskNotFoundException
+    //         otherwise, changes the given task's name to n
+    public void editTaskName(Task t, String n) throws TaskNotFoundException {
+        if (!tl.contains(t)) {
+            throw new TaskNotFoundException();
+        }
         for (Task task : tl) {
             if (task.equals(t)) {
                 task.setName(n);
@@ -108,10 +144,14 @@ public class TaskList implements Writable {
         }
     }
 
-    //REQUIRES: given task must exist in list
+
     //MODIFIES: t
-    //EFFECTS: changes the given task's subject to sub
-    public void editTaskSub(Task t, String sub) {
+    //EFFECTS: if given task is not in list, throw TaskNotFoundException
+    //         otherwise, changes the given task's subject to sub
+    public void editTaskSub(Task t, String sub) throws TaskNotFoundException {
+        if (!tl.contains(t)) {
+            throw new TaskNotFoundException();
+        }
         for (Task task : tl) {
             if (task.equals(t)) {
                 task.setSubject(sub);
@@ -119,10 +159,14 @@ public class TaskList implements Writable {
         }
     }
 
-    //REQUIRES: given task must exist in list
+
     //MODIFIES: t
-    //EFFECTS: changes the given task's type to t
-    public void editTaskType(Task t, String type) {
+    //EFFECTS: if given task is not in list, throw TaskNotFoundException
+    //         otherwise, changes the given task's type to t
+    public void editTaskType(Task t, String type) throws TaskNotFoundException {
+        if (!tl.contains(t)) {
+            throw new TaskNotFoundException();
+        }
         for (Task task : tl) {
             if (task.equals(t)) {
                 task.setType(type);
@@ -130,10 +174,13 @@ public class TaskList implements Writable {
         }
     }
 
-    //REQUIRES: given task must exist in list
     //MODIFIES: t
-    //EFFECTS: changes the given task's duration to d
-    public void editTaskDur(Task t, int d) {
+    //EFFECTS: if given task is not in list, throw TaskNotFoundException
+    //         otherwise, changes the given task's duration to d
+    public void editTaskDur(Task t, int d) throws TaskNotFoundException {
+        if (!tl.contains(t)) {
+            throw new TaskNotFoundException();
+        }
         for (Task task : tl) {
             if (task.equals(t)) {
                 task.setDuration(d);
@@ -141,10 +188,13 @@ public class TaskList implements Writable {
         }
     }
 
-    //REQUIRES: given task must exist in list
+
     //MODIFIES: t
     //EFFECTS: changes the given task's description to d
-    public void editTaskDescription(Task t, String d) {
+    public void editTaskDescription(Task t, String d) throws TaskNotFoundException {
+        if (!tl.contains(t)) {
+            throw new TaskNotFoundException();
+        }
         for (Task task : tl) {
             if (task.equals(t)) {
                 task.setDescription(d);

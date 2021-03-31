@@ -127,19 +127,12 @@
             "type": "E"
         },
         {
-            "duration": 6,
-            "subject": "F",
-            "description": "F",
-            "taskName": "F",
-            "type": "F"
-        },
-        {
-            "duration": 7,
-            "subject": "G",
-            "description": "G",
-            "taskName": "G",
-            "type": "G"
+            "duration": 10000,
+            "subject": "Helllooooo",
+            "description": "hellohello",
+            "taskName": "Helloooo",
+            "type": "Hiiii"
         }
     ],
-    "frogWeight": 5
+    "frogWeight": 4
 }

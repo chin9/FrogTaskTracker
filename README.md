@@ -33,3 +33,9 @@ be reminded to save my task list to file and have th eoption to do so or not.
 - As a user, when I start the application, I want to be given the option to load my task list from file.
 
 
+## Phase 4: Task 2
+- I chose to test and design a class in the model package that is robust.
+- The class I chose to make robust was TaskList
+- The methods that are now robust include: removeTask, editTaskName,
+displayTaskOfType, displayTaskOfSubject, editTaskName, editTaskSub
+editTaskType, editTaskDur, editTaskDescription

@@ -1,5 +1,6 @@
 package gui.listeners;
 
+import exception.TaskNotFoundException;
 import gui.TaskListGUI;
 import model.Task;
 import model.TaskList;
@@ -33,7 +34,11 @@ public class EditNameListener implements ActionListener, DocumentListener {
         task = tl.getTaskByName(listModel.get(index).toString());
 
         String text = newTaskName.getText();
-        task.setName(text);
+        try {
+            tl.editTaskName(task, text);
+        } catch (TaskNotFoundException exception) {
+            System.out.println("Task not found");
+        }
         listModel.set(index, text);
         newTaskName.setText("");
     }

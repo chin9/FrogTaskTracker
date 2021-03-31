@@ -1,5 +1,8 @@
 package ui;
 
+import exception.SubjectNotFoundException;
+import exception.TaskNotFoundException;
+import exception.TypeNotFoundException;
 import model.Task;
 import model.TaskList;
 import persistence.JsonReader;
@@ -191,7 +194,11 @@ public class TrackerApp {
         System.out.println("Enter the name of task you want to remove: ");
         name = input.nextLine();
         task = myTL.getTaskByName(name);
-        myTL.removeTask(task);
+        try {
+            myTL.removeTask(task);
+        } catch (TaskNotFoundException e) {
+            System.out.println("Task not found!");
+        }
         System.out.println("The task " + name + " is removed.");
         displayFrogWeight();
     }
@@ -244,7 +251,11 @@ public class TrackerApp {
         String name;
         System.out.println("What do you want to change the name to?");
         name = input.nextLine();
-        myTL.editTaskName(task, name);
+        try {
+            myTL.editTaskName(task, name);
+        } catch (TaskNotFoundException e) {
+            System.out.println("Task not found");
+        }
         System.out.println("Name changed to: " + name);
     }
 
@@ -254,7 +265,11 @@ public class TrackerApp {
         String sub;
         System.out.println("What do you want to change the subject to?");
         sub = input.nextLine();
-        myTL.editTaskSub(task, sub);
+        try {
+            myTL.editTaskSub(task, sub);
+        } catch (TaskNotFoundException e) {
+            System.out.println("Task not found");
+        }
         System.out.println("Subject changed to: " + sub);
     }
 
@@ -264,7 +279,11 @@ public class TrackerApp {
         String type;
         System.out.println("What do you want to change the type to?");
         type = input.nextLine();
-        myTL.editTaskType(task, type);
+        try {
+            myTL.editTaskType(task, type);
+        } catch (TaskNotFoundException e) {
+            System.out.println("Task not found");
+        }
         System.out.println("Type changed to: " + type);
     }
 
@@ -274,7 +293,11 @@ public class TrackerApp {
         int dur;
         System.out.println("What do you want to change the duration to?");
         dur = Integer.parseInt(input.nextLine());
-        myTL.editTaskDur(task, dur);
+        try {
+            myTL.editTaskDur(task, dur);
+        } catch (TaskNotFoundException e) {
+            System.out.println("Task not found");
+        }
         System.out.println("Duration changed to: " + dur);
     }
 
@@ -284,7 +307,11 @@ public class TrackerApp {
         String des;
         System.out.println("What do you want to change the description to?");
         des = input.nextLine();
-        myTL.editTaskDescription(task, des);
+        try {
+            myTL.editTaskDescription(task, des);
+        } catch (TaskNotFoundException e) {
+            System.out.println("Task not found");
+        }
         System.out.println("Description changed to: " + des);
     }
 
@@ -331,7 +358,11 @@ public class TrackerApp {
         System.out.println("Enter subject: ");
         sub = input.nextLine();
         System.out.println("For the subject " + sub + ", you have completed: ");
-        System.out.println(myTL.displayTasksOfSubject(sub));
+        try {
+            System.out.println(myTL.displayTasksOfSubject(sub));
+        } catch (SubjectNotFoundException e) {
+            System.out.println("Subject not found");
+        }
     }
 
     //EFFECTS: displays the names of all tasks completed of entered type
@@ -340,7 +371,11 @@ public class TrackerApp {
         System.out.println("Enter type: ");
         type = input.nextLine();
         System.out.println("For the type " + type + ", you have completed: ");
-        System.out.println(myTL.displayTasksOfType(type));
+        try {
+            System.out.println(myTL.displayTasksOfType(type));
+        } catch (TypeNotFoundException e) {
+            System.out.println("Type not found!");
+        }
     }
 
     //EFFECTS: display total time recorded

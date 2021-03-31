@@ -1,9 +1,15 @@
 package model;
 
+import exception.SubjectNotFoundException;
+import exception.TaskNotFoundException;
+import exception.TypeNotFoundException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import javax.security.auth.Subject;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 //Test for TaskList
@@ -49,16 +55,30 @@ public class TaskListTest {
     }
 
     @Test
-    public void testRemoveTask() {
+    public void testRemoveTaskTaskFound() {
         taskList.addTask(t1);
         taskList.addTask(t3);
         assertEquals(5, taskList.getTasks().size());
         assertEquals(2, taskList.getFrogWeight());
-        taskList.removeTask(t2);
+        try {
+            taskList.removeTask(t2);
+        } catch (TaskNotFoundException e) {
+            fail("Not supposed to throw this exception");
+        }
         assertEquals(4, taskList.getTasks().size());
         assertTrue(taskList.getTasks().contains(t1));
         assertTrue(taskList.getTasks().contains(t3));
         assertEquals(1, taskList.getFrogWeight());
+    }
+
+    @Test
+    public void testRemoveTaskNotFound() {
+        try {
+            taskList.removeTask(new Task("non-existent task"));
+            fail("supposed to throw an exception");
+        } catch (TaskNotFoundException exception) {
+            //pass
+        }
     }
 
     @Test
@@ -76,15 +96,43 @@ public class TaskListTest {
     }
 
     @Test
-    public void testDisplayTaskOfType() {
+    public void testDisplayTaskOfTypeTypeFound() {
 
-        assertEquals("Assignment 1\nPeer Review Worksheet\n", taskList.displayTasksOfType("Homework"));
+        try {
+            assertEquals("Assignment 1\nPeer Review Worksheet\n", taskList.displayTasksOfType("Homework"));
+        } catch (TypeNotFoundException e) {
+            fail("Not supposed to throw this exception");
+        }
     }
 
     @Test
-    public void testDisplayTaskOfSubject() {
+    public void testDisplayTaskOfTypeNotFound() {
+        try {
+            taskList.displayTasksOfType("non-existent type");
+            fail("supposed to throw exception");
+        } catch (TypeNotFoundException e) {
+            //pass
+        }
+    }
 
-        assertEquals("Assignment 1\nQuiz 2B\n", taskList.displayTasksOfSubject("CPSC 121"));
+    @Test
+    public void testDisplayTaskOfSubjectSubjectFound() {
+
+        try {
+            assertEquals("Assignment 1\nQuiz 2B\n", taskList.displayTasksOfSubject("CPSC 121"));
+        } catch (SubjectNotFoundException e) {
+            fail("Not supposed to throw this exception");
+        }
+    }
+
+    @Test
+    public void testDisplayTaskOfSubjectNotFound() {
+        try {
+            taskList.displayTasksOfSubject("non-existent subject");
+            fail("supposed to throw an exception");
+        } catch (SubjectNotFoundException e) {
+            //pass
+        }
     }
 
     @Test
@@ -103,33 +151,103 @@ public class TaskListTest {
     }
 
     @Test
-    public void testEditTaskName() {
-        taskList.editTaskName(t2, "Speaker Series Worksheet");
+    public void testEditTaskNameFound() {
+        try {
+            taskList.editTaskName(t2, "Speaker Series Worksheet");
+        } catch (TaskNotFoundException e) {
+            fail("Not supposed to throw this exception");
+        }
         assertEquals("Speaker Series Worksheet", taskList.getTask(1).getTaskName());
     }
 
     @Test
-    public void testEditTaskSub() {
-        taskList.editTaskSub(t3, "MATH 101");
+    public void testEditTaskNameNotFound() {
+        try {
+            taskList.editTaskName(new Task("non-existent task"), "Speaker Series Worksheet");
+            fail("supposed to throw exception");
+        } catch (TaskNotFoundException exception) {
+            //pass
+        }
+    }
+
+    @Test
+    public void testEditTaskSubFound() {
+        try {
+            taskList.editTaskSub(t3, "MATH 101");
+        } catch (TaskNotFoundException e) {
+            fail("Not supposed to throw this exception");
+        }
         assertEquals("MATH 101",taskList.getTask(2).getSubject());
     }
 
     @Test
-    public void testEditTaskType() {
-        taskList.editTaskType(t3, "Miscellaneous");
+    public void testEditTaskSubNotFound() {
+        try {
+            taskList.editTaskSub(new Task("non-existent task"), "Speaker Series Worksheet");
+            fail("supposed to throw an exception");
+        } catch (TaskNotFoundException e) {
+            //pass
+        }
+    }
+
+    @Test
+    public void testEditTaskTypeFound() {
+        try {
+            taskList.editTaskType(t3, "Miscellaneous");
+        } catch (TaskNotFoundException e) {
+            fail("Not supposed to throw this exception");
+        }
         assertEquals("Miscellaneous", taskList.getTask(2).getType());
     }
 
     @Test
-    public void testEditTaskDur() {
-        taskList.editTaskDur(t2, 100);
+    public void testEditTaskTypeNotFound() {
+        try {
+            taskList.editTaskType(new Task("non-existent task"), "Speaker Series Worksheet");
+            fail("supposed to throw an exception");
+        } catch (TaskNotFoundException exception) {
+            //pass
+        }
+    }
+
+    @Test
+    public void testEditTaskDurFound() {
+        try {
+            taskList.editTaskDur(t2, 100);
+        } catch (TaskNotFoundException e) {
+            fail("Not supposed to throw this exception");
+        }
         assertEquals(100, taskList.getTask(1).getDuration());
     }
 
     @Test
-    public void testEditTaskDescription() {
-        taskList.editTaskDescription(t3, "Quiz on Propositional Logic");
+    public void testEditTaskDurNotFound() {
+        try {
+            taskList.editTaskDur(new Task("non-existent task"), 1);
+            fail("supposed to throw an exception");
+        } catch (TaskNotFoundException exception) {
+            //pass
+        }
+    }
+
+    @Test
+    public void testEditTaskDescriptionFound() {
+        try {
+            taskList.editTaskDescription(t3, "Quiz on Propositional Logic");
+        } catch (TaskNotFoundException exception) {
+            fail("Not supposed to throw this exception");
+        }
         assertEquals("Quiz on Propositional Logic", taskList.getTask(2).getDescription());
+    }
+
+    @Test
+    public void testEditTaskDescriptionNotFound() {
+        try {
+            taskList.editTaskDescription(new Task("non-existent task"), "hahaha");
+            fail("supposed to throw an exception");
+        } catch (TaskNotFoundException exception) {
+            //pass
+        }
     }
 
     @Test
