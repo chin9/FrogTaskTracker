@@ -1,13 +1,10 @@
 package gui;
 
-import model.TaskList;
 
 import javax.swing.*;
 
 public class TaskTrackerGUI extends JFrame {
 
-    private TaskList tl;
-    private TaskListGUI tlg;
 
     //EFFECTS: constructs the main window
     public TaskTrackerGUI() {

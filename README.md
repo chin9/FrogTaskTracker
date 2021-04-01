@@ -39,3 +39,19 @@ be reminded to save my task list to file and have th eoption to do so or not.
 - The methods that are now robust include: removeTask, editTaskName,
 displayTaskOfType, displayTaskOfSubject, editTaskName, editTaskSub
 editTaskType, editTaskDur, editTaskDescription
+
+## Phase 4: Task 3
+- I would want to refactor my project so that TaskListGUI does not know about the Listener classes
+by just initiating a new class inside of the addListener methods
+I find that bidirectional association unnecessary
+- I also feel like there is too much coupling between the Edit Listeners, I would probably want to add
+an abstract class at a higher level and make the listeners extend
+that class so that I wouldn't have to make changes in every class when I
+just want to make one change. It is also possible to merge them into one class, and
+have the function differ according to which text field has text in it. However,
+that may make the class incoherent.
+- Similarly, there is also some coupling between FilterByTypeListener and FilterBySubjectListener.
+I think there should be a higher level class which they extend to have a
+a single point of control.
+- AddListener also doesn't need to be associated with TaskList or Task. It should be able to
+complete all its functions just by being associated with TaskListGUI
