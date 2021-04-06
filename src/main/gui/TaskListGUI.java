@@ -13,8 +13,8 @@ import java.awt.event.WindowListener;
 
 
 public class TaskListGUI extends JPanel implements ListSelectionListener, WindowListener {
-    private static final int WIDTH = 300;
-    private static final int HEIGHT = 400;
+    private static final int WIDTH = 400;
+    private static final int HEIGHT = 200;
 
     private JList list;
     private DefaultListModel listModel;
@@ -60,7 +60,7 @@ public class TaskListGUI extends JPanel implements ListSelectionListener, Window
         parent.addWindowListener(this);
         panel = new JPanel();
         panel.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-        add(panel);
+        add(panel, BorderLayout.CENTER);
 
         askToLoad();
         listModel = new DefaultListModel();
@@ -191,7 +191,7 @@ public class TaskListGUI extends JPanel implements ListSelectionListener, Window
         updateFrogLabel();
         imagePane.add(frogLabel);
         imagePane.add(weightLabel);
-        add(imagePane, BorderLayout.BEFORE_FIRST_LINE);
+        add(imagePane, BorderLayout.WEST);
     }
 
     //MODIFIES: this

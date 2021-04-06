@@ -1,88 +1,67 @@
 {
     "tl": [
         {
-            "duration": 1000,
+            "duration": 10,
             "subject": "CPSC 210",
-            "description": "Implement a GUI",
+            "description": "!!!!",
+            "taskName": "Phase 1",
+            "type": "Project"
+        },
+        {
+            "duration": 10,
+            "subject": "CPSC 210",
+            "description": "Save/Load",
+            "taskName": "Phase 2",
+            "type": "Project"
+        },
+        {
+            "duration": 100000,
+            "subject": "CPSC 210",
+            "description": "GUI",
             "taskName": "Phase 3",
             "type": "Project"
         },
         {
-            "duration": 2000,
-            "subject": "A",
-            "description": "hohoho",
-            "taskName": "Term Paper",
-            "type": "Assignment"
-        },
-        {
-            "duration": 300,
+            "duration": 60,
             "subject": "CPSC 210",
-            "description": "A - C3???",
-            "taskName": "ITE2",
-            "type": "Study "
+            "description": "Design",
+            "taskName": "Phase 4",
+            "type": "Project"
         },
         {
             "duration": 400,
             "subject": "CPSC 121",
-            "description": "Direct proofs and quantifier things...",
-            "taskName": "Assignment 3",
+            "description": "Hard!",
+            "taskName": "Assignment 4",
             "type": "Assignment"
         },
         {
-            "duration": 200,
-            "subject": "MATH 101",
-            "description": "Convergence things I don't even know what is going on!!",
-            "taskName": "Midterm 3",
-            "type": "Study"
+            "duration": 400,
+            "subject": "SCIE 113",
+            "description": "DBS on TRD",
+            "taskName": "Term Paper",
+            "type": "Assignment"
+        },
+        {
+            "duration": 360,
+            "subject": "SCIE 113",
+            "description": "COVID-19 / Mathematic modelling",
+            "taskName": "Final Project",
+            "type": "Project"
         },
         {
             "duration": 60,
             "subject": "SCIE 113",
-            "description": "Reviewed term paper for two classmates.",
-            "taskName": "Peer Review Worksheet",
+            "description": "!!",
+            "taskName": "Speaker Series Worksheet 6",
             "type": "Homework"
         },
         {
-            "duration": 100,
-            "subject": "Woohoo",
-            "description": "Woot",
-            "taskName": "Yeah",
-            "type": "I want summer break :c"
-        },
-        {
-            "duration": 90,
+            "duration": 60,
             "subject": "MATH 101",
-            "description": "I forgot",
-            "taskName": "Homework 8",
+            "description": "Power Series",
+            "taskName": "Homeowrk 11",
             "type": "Homework"
-        },
-        {
-            "duration": 90,
-            "subject": "CPSC 210",
-            "description": "Associations",
-            "taskName": "Lab 8",
-            "type": "Lab"
-        },
-        {
-            "duration": 300,
-            "subject": "CPSC 121",
-            "description": "Hard!",
-            "taskName": "Midterm 2",
-            "type": "Study"
-        },
-        {
-            "duration": 120,
-            "subject": "SCIE 113",
-            "description": "term paper thing",
-            "taskName": "Term Paper Version 1",
-            "type": "Assignment"
-        },
-        {
-            "duration": 10,
-            "subject": "hi",
-            "description": "jjjj",
-            "taskName": "hello",
-            "type": "aloha"
         },
         {
             "duration": 1,
@@ -106,13 +85,6 @@
             "type": "C"
         },
         {
-            "duration": 70,
-            "subject": "MATH 101",
-            "description": "study the thing I forgot to learn.",
-            "taskName": "Webwork",
-            "type": "Study"
-        },
-        {
             "duration": 4,
             "subject": "D",
             "description": "D",
@@ -127,12 +99,47 @@
             "type": "E"
         },
         {
-            "duration": 10000,
-            "subject": "Helllooooo",
-            "description": "hellohello",
-            "taskName": "Helloooo",
-            "type": "Hiiii"
+            "duration": 6,
+            "subject": "F",
+            "description": "alskjf;laskfjaslkfj;salkfja;lewfjowafijwefa;flakj;aifjwo;fi;ojf",
+            "taskName": "F",
+            "type": "F"
+        },
+        {
+            "duration": 7,
+            "subject": "G",
+            "description": "G",
+            "taskName": "G",
+            "type": "G"
+        },
+        {
+            "duration": 8,
+            "subject": "H",
+            "description": "H",
+            "taskName": "H",
+            "type": "H"
+        },
+        {
+            "duration": 9,
+            "subject": "I",
+            "description": "I",
+            "taskName": "I",
+            "type": "I"
+        },
+        {
+            "duration": 10,
+            "subject": "J",
+            "description": "J",
+            "taskName": "J",
+            "type": "J"
+        },
+        {
+            "duration": 11,
+            "subject": "K",
+            "description": "K",
+            "taskName": "K",
+            "type": "K"
         }
     ],
-    "frogWeight": 4
+    "frogWeight": 5
 }

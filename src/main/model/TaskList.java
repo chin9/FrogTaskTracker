@@ -5,13 +5,13 @@ import exception.TaskNotFoundException;
 import exception.TypeNotFoundException;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import persistence.Writable;
+import persistence.Writeable;
 
 import java.util.ArrayList;
 import java.util.List;
 
 // Represents a list of tasks, including weight of frog fed by the completed tasks
-public class TaskList implements Writable {
+public class TaskList implements Writeable {
 
     private List<Task> tl;
     private int frogWeight;
@@ -58,7 +58,7 @@ public class TaskList implements Writable {
         return taskNames;
     }
 
-    //REQUIRES: type must be an existing type in list
+
     //EFFECTS: if type is not already an existing type, throw TypeNotFoundException;
     //         otherwise, return the names of all the tasks of given type
     public String displayTasksOfType(String type) throws TypeNotFoundException {
