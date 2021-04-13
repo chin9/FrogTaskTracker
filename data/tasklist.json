@@ -139,6 +139,27 @@
             "description": "K",
             "taskName": "K",
             "type": "K"
+        },
+        {
+            "duration": 1000,
+            "subject": "K",
+            "description": "K",
+            "taskName": "L",
+            "type": "K"
+        },
+        {
+            "duration": 300,
+            "subject": "SCIE 113",
+            "description": "reflection + counterargument",
+            "taskName": "Final Project Reflection",
+            "type": "Project"
+        },
+        {
+            "duration": 80,
+            "subject": "MATH 101",
+            "description": "Taylor series + power series",
+            "taskName": "Homework 12",
+            "type": "Homework"
         }
     ],
     "frogWeight": 5
